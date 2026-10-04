@@ -7,6 +7,7 @@
 const SITE = {
   downloadUrl: '', // e.g. 'https://github.com/you/fraglab/releases/latest'
   discordUrl: '', // e.g. 'https://discord.gg/your-invite'
+  buyUrl: '', // checkout / store page for the Pricing buttons
 };
 
 (() => {
@@ -63,10 +64,10 @@ const SITE = {
   // ---------- Download / Discord links ----------
   $$('[data-link]').forEach((a) => {
     const kind = a.dataset.link;
-    const url = kind === 'download' ? SITE.downloadUrl : SITE.discordUrl;
+    const url = { download: SITE.downloadUrl, discord: SITE.discordUrl, buy: SITE.buyUrl }[kind];
     if (url) {
       a.href = url;
-      if (kind === 'discord') {
+      if (kind !== 'download') {
         a.target = '_blank';
         a.rel = 'noopener';
       }
@@ -74,7 +75,7 @@ const SITE = {
     }
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      toast(kind === 'download' ? 'Download link coming soon' : 'Discord invite coming soon');
+      toast({ download: 'Download link coming soon', discord: 'Discord invite coming soon', buy: 'Store coming soon' }[kind]);
     });
   });
 
