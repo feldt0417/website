@@ -4,7 +4,7 @@
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const { copy, download, toast, openTool } = window.FragLab;
+  const { copy, download, toast, openTool, onDprChange } = window.FragLab;
 
   // ==========================================================================
   // Shared helpers
@@ -43,7 +43,10 @@
     const box = $('input[type="number"]', row);
     range.addEventListener('input', () => { box.value = range.value; });
     box.addEventListener('input', () => { if (box.value !== '') range.value = box.value; });
-    box.addEventListener('change', () => { box.value = num(box.id); });
+    box.addEventListener('change', () => {
+      box.value = num(box.id);
+      range.value = box.value;
+    });
   });
 
   const escapeHtml = (s) =>
@@ -366,7 +369,10 @@
   $$('.segmented [data-scene]').forEach((btn) =>
     btn.addEventListener('click', () => {
       xhScene = btn.dataset.scene;
-      $$('.segmented [data-scene]').forEach((b) => b.classList.toggle('is-active', b === btn));
+      $$('.segmented [data-scene]').forEach((b) => {
+        b.classList.toggle('is-active', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
       drawCrosshair();
     })
   );
@@ -377,6 +383,7 @@
 
   if ('ResizeObserver' in window) new ResizeObserver(drawCrosshair).observe(xhCanvas);
   else window.addEventListener('resize', drawCrosshair);
+  onDprChange(drawCrosshair);
   document.addEventListener('fraglab:tool', (e) => { if (e.detail === 'crosshair') drawCrosshair(); });
 
   // ==========================================================================
@@ -421,6 +428,12 @@
     };
   }
 
+  let announceTimer;
+  const announceSens = (text) => {
+    clearTimeout(announceTimer);
+    announceTimer = setTimeout(() => { $('#sens-live').textContent = text; }, 600);
+  };
+
   function renderSens() {
     const r = readSens();
     $('#sens-result-label').textContent = `Your ${GAMES[toSel.value].name} sensitivity`;
@@ -431,6 +444,7 @@
       return;
     }
     $('#sens-result').textContent = fmt(r.result, 3);
+    announceSens(`${GAMES[toSel.value].name} sensitivity ${fmt(r.result, 3)}`);
     $('#sens-edpi').textContent = Math.round(r.edpi).toLocaleString();
     $('#sens-cm').textContent = fmt(r.cm360, 1);
     $('#sens-in').textContent = fmt(r.in360, 1);
@@ -464,6 +478,7 @@
     setNum('ae-sens', Number(fmt(r.cs2Sens, 3)));
     renderAutoexec();
     openTool('autoexec', { scroll: true });
+    $('#ae-sens').focus({ preventScroll: true });
     toast(`CS2 sensitivity ${fmt(r.cs2Sens, 3)} added to your autoexec`);
   });
 

@@ -34,6 +34,7 @@ const SITE = {
     try {
       await navigator.clipboard.writeText(text);
     } catch {
+      const prev = document.activeElement;
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.setAttribute('readonly', '');
@@ -41,8 +42,11 @@ const SITE = {
       ta.style.opacity = '0';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); } catch { /* nothing else to try */ }
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch { /* handled below */ }
       ta.remove();
+      prev?.focus?.({ preventScroll: true });
+      if (!ok) return toast('Copy failed. Select the text and copy it manually.');
     }
     toast(message);
   }
@@ -58,6 +62,17 @@ const SITE = {
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast(`Downloaded ${filename}`);
+  }
+
+  /** Call `fn` whenever devicePixelRatio changes (e.g. window moved to another monitor). */
+  function onDprChange(fn) {
+    const watch = () =>
+      window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`).addEventListener(
+        'change',
+        () => { fn(); watch(); },
+        { once: true }
+      );
+    watch();
   }
 
   // ---------- Download / Discord links ----------
@@ -93,8 +108,11 @@ const SITE = {
     navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     navMenu.classList.toggle('is-open', open);
     document.body.classList.toggle('nav-open', open);
+    // Keep keyboard focus inside the open menu.
+    $$('main, .site-footer').forEach((el) => { el.inert = open; });
   }
   navToggle.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
+  window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
       setMenu(false);
@@ -104,11 +122,13 @@ const SITE = {
   $$('#nav-menu a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
   // ---------- Accent color (also driven by the app preview) ----------
+  // accent, accent-2, accent rgb, then button fill stops and the text color
+  // that stays readable on them (all >= 4.5:1).
   const ACCENTS = {
-    violet: ['#8b5cf6', '#d946ef', '139 92 246'],
-    crimson: ['#ef4444', '#f97316', '239 68 68'],
-    ocean: ['#06b6d4', '#3b82f6', '6 182 212'],
-    toxic: ['#22c55e', '#a3e635', '34 197 94'],
+    violet: ['#8b5cf6', '#d946ef', '139 92 246', '#7c3aed', '#a21caf', '#ffffff'],
+    crimson: ['#ef4444', '#f97316', '239 68 68', '#dc2626', '#c2410c', '#ffffff'],
+    ocean: ['#06b6d4', '#3b82f6', '6 182 212', '#0e7490', '#1d4ed8', '#ffffff'],
+    toxic: ['#22c55e', '#a3e635', '34 197 94', '#22c55e', '#a3e635', '#0b0b13'],
   };
   let accentRgb = ACCENTS.violet[2];
 
@@ -116,11 +136,14 @@ const SITE = {
     const a = ACCENTS[name];
     if (!a) return;
     const root = document.documentElement.style;
-    root.setProperty('--accent', a[0]);
-    root.setProperty('--accent-2', a[1]);
-    root.setProperty('--accent-rgb', a[2]);
+    ['--accent', '--accent-2', '--accent-rgb', '--btn-1', '--btn-2', '--on-accent'].forEach((prop, i) => root.setProperty(prop, a[i]));
     accentRgb = a[2];
-    $$('.accent-swatch').forEach((s) => s.setAttribute('aria-checked', String(s.dataset.accent === name)));
+    $$('.accent-swatch').forEach((s) => {
+      const on = s.dataset.accent === name;
+      s.setAttribute('aria-checked', String(on));
+      s.tabIndex = on ? 0 : -1;
+    });
+    document.dispatchEvent(new CustomEvent('fraglab:accent'));
     if (save) {
       try { localStorage.setItem('fraglab-accent', name); } catch { /* storage unavailable */ }
     }
@@ -141,23 +164,31 @@ const SITE = {
     let H = 0;
     let pts = [];
     let raf = 0;
+    let heroInView = !('IntersectionObserver' in window);
     const pointer = { x: -9999, y: -9999 };
+
+    const makePoint = () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.3 + 0.5,
+    });
 
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const oldW = W;
+      const oldH = H;
       W = canvas.clientWidth;
       H = canvas.clientHeight;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Keep existing points (scaled) so a resize doesn't reshuffle the field.
+      if (oldW && oldH) pts.forEach((p) => { p.x *= W / oldW; p.y *= H / oldH; });
       const count = Math.min(90, Math.round((W * H) / 15000));
-      pts = Array.from({ length: count }, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.3 + 0.5,
-      }));
+      while (pts.length < count) pts.push(makePoint());
+      pts.length = count;
       if (!raf) draw(false);
     }
 
@@ -202,7 +233,7 @@ const SITE = {
       draw(true);
       raf = requestAnimationFrame(loop);
     }
-    const start = () => { if (!raf && !reducedMotion) raf = requestAnimationFrame(loop); };
+    const start = () => { if (!raf && !reducedMotion && heroInView && !document.hidden) raf = requestAnimationFrame(loop); };
     const stop = () => { cancelAnimationFrame(raf); raf = 0; };
 
     hero.addEventListener('pointermove', (e) => {
@@ -215,9 +246,15 @@ const SITE = {
     if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
     else window.addEventListener('resize', resize);
     resize();
+    onDprChange(resize);
+    document.addEventListener('fraglab:accent', () => { if (!raf) draw(false); });
 
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop())).observe(hero);
+      new IntersectionObserver(([entry]) => {
+        heroInView = entry.isIntersecting;
+        if (heroInView) start();
+        else stop();
+      }).observe(hero);
     } else {
       start();
     }
@@ -277,7 +314,10 @@ const SITE = {
       seg.addEventListener('click', (e) => {
         const btn = e.target.closest('button');
         if (!btn) return;
-        $$('button', seg).forEach((b) => b.classList.toggle('is-active', b === btn));
+        $$('button', seg).forEach((b) => {
+          b.classList.toggle('is-active', b === btn);
+          b.setAttribute('aria-pressed', String(b === btn));
+        });
       })
     );
 
@@ -294,6 +334,7 @@ const SITE = {
       if (listening) return stopListening(previous);
       previous = keyBtn.textContent;
       listening = true;
+      keyBtn.focus(); // Safari doesn't focus buttons on click; blur must fire to cancel
       keyBtn.classList.add('is-listening');
       keyBtn.textContent = 'Press a key…';
     });
@@ -301,7 +342,7 @@ const SITE = {
     document.addEventListener(
       'keydown',
       (e) => {
-        if (!listening) return;
+        if (!listening || document.activeElement !== keyBtn || e.key === 'Tab') return;
         e.preventDefault();
         e.stopPropagation();
         if (e.key === 'Escape') return stopListening(previous);
@@ -317,14 +358,25 @@ const SITE = {
         $$('.app-item', app).forEach((i) => {
           const on = i === item;
           i.classList.toggle('is-active', on);
-          i.setAttribute('aria-selected', String(on));
+          i.setAttribute('aria-pressed', String(on));
         });
         $('#app-profile-name').textContent = item.dataset.profile;
       })
     );
 
     // Accent swatches
-    $$('.accent-swatch', app).forEach((s) => s.addEventListener('click', () => setAccent(s.dataset.accent)));
+    const swatches = $$('.accent-swatch', app);
+    swatches.forEach((s, i) => {
+      s.addEventListener('click', () => setAccent(s.dataset.accent));
+      s.addEventListener('keydown', (e) => {
+        const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+        if (!step) return;
+        e.preventDefault();
+        const next = swatches[(i + step + swatches.length) % swatches.length];
+        setAccent(next.dataset.accent);
+        next.focus();
+      });
+    });
 
     // Mini crosshair
     const mini = $('#mini-xh');
@@ -418,12 +470,23 @@ const SITE = {
     })
   );
 
-  // Deep links like /#tool-sens open the right tab on load.
-  const hashTool = location.hash.match(/^#tool-(\w+)$/);
-  if (hashTool) {
-    openTool(hashTool[1]);
-    requestAnimationFrame(() => $('#tools').scrollIntoView());
+  // Deep links like /#tool-sens open the right tab, on load and on hash changes.
+  function openFromHash() {
+    const m = location.hash.match(/^#tool-(\w+)$/);
+    if (!m || !tabs.some((t) => t.dataset.tool === m[1])) return;
+    openTool(m[1]);
+    // Settle the slide-up reveal first, or the scroll lands 16px off once it finishes.
+    const shell = $('#tools .tool-shell');
+    shell.style.transition = 'none';
+    shell.classList.add('is-visible');
+    void shell.offsetHeight;
+    shell.style.transition = '';
+    // The panel was hidden when the browser tried to scroll to it, so scroll now.
+    $('#tool-' + m[1]).scrollIntoView({ behavior: 'instant', block: 'start' });
   }
+  window.addEventListener('hashchange', openFromHash);
+  if (document.readyState === 'complete') openFromHash();
+  else window.addEventListener('load', () => setTimeout(openFromHash), { once: true });
 
   // ---------- Reveal on scroll ----------
   if ('IntersectionObserver' in window) {
@@ -446,5 +509,5 @@ const SITE = {
   const year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
 
-  window.FragLab = { toast, copy, download, openTool, setAccent };
+  window.FragLab = { toast, copy, download, openTool, setAccent, onDprChange };
 })();

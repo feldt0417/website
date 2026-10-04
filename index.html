@@ -65,8 +65,8 @@
       </a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <svg class="icon icon-open"><use href="#i-menu"/></svg>
-        <svg class="icon icon-close"><use href="#i-close"/></svg>
+        <svg class="icon icon-open" aria-hidden="true" focusable="false"><use href="#i-menu"/></svg>
+        <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="#i-close"/></svg>
       </button>
 
       <div class="nav-menu" id="nav-menu">
@@ -77,8 +77,8 @@
           <li><a class="nav-link" href="#faq">FAQ</a></li>
         </ul>
         <div class="nav-actions">
-          <a class="btn btn-ghost btn-sm" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Discord</a>
-          <a class="btn btn-primary btn-sm" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download</a>
+          <a class="btn btn-ghost btn-sm" href="#" data-link="discord"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg>Discord</a>
+          <a class="btn btn-primary btn-sm" href="#" data-link="download"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Download</a>
         </div>
       </div>
     </nav>
@@ -95,18 +95,18 @@
         <a class="pill" href="#features">
           <span class="pill-dot"></span>
           <span>Version 1.0 is out</span>
-          <svg class="icon"><use href="#i-arrow"/></svg>
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>
         </a>
         <h1 class="hero-title"><span class="glow-text">FragLab</span></h1>
         <p class="hero-sub">A lightweight CS2 utility. Bhop helper, crosshair editor and config tools in one clean app.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download for Windows</a>
+          <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Download for Windows</a>
           <a class="btn btn-ghost btn-lg" href="#features">Explore features</a>
         </div>
         <ul class="hero-meta">
-          <li><svg class="icon"><use href="#i-monitor"/></svg>Windows 10 / 11</li>
-          <li><svg class="icon"><use href="#i-cpu"/></svg>Lightweight</li>
-          <li><svg class="icon"><use href="#i-refresh"/></svg>Regular updates</li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-monitor"/></svg>Windows 10 / 11</li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-cpu"/></svg>Lightweight</li>
+          <li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-refresh"/></svg>Regular updates</li>
         </ul>
 
         <!-- Interactive app preview -->
@@ -120,18 +120,20 @@
               </div>
               <span class="app-hint">Interactive preview</span>
               <div class="app-controls" aria-hidden="true">
-                <span><svg class="icon"><use href="#i-minus"/></svg></span>
-                <span><svg class="icon"><use href="#i-square"/></svg></span>
-                <span class="app-close"><svg class="icon"><use href="#i-close"/></svg></span>
+                <span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-minus"/></svg></span>
+                <span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-square"/></svg></span>
+                <span class="app-close"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-close"/></svg></span>
               </div>
             </div>
 
             <div class="app-body">
-              <div class="app-side" role="tablist" aria-label="App sections">
-                <button class="app-tab is-active" type="button" role="tab" aria-selected="true" data-pane="movement"><svg class="icon"><use href="#i-jump"/></svg><span>Movement</span></button>
-                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="crosshair"><svg class="icon"><use href="#i-crosshair"/></svg><span>Crosshair</span></button>
-                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="configs"><svg class="icon"><use href="#i-folder"/></svg><span>Configs</span></button>
-                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="settings"><svg class="icon"><use href="#i-gear"/></svg><span>Settings</span></button>
+              <div class="app-side">
+                <div class="app-tabs" role="tablist" aria-label="App sections">
+                  <button class="app-tab is-active" type="button" role="tab" id="apptab-movement" aria-controls="apppane-movement" aria-selected="true" data-pane="movement"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-jump"/></svg><span>Movement</span></button>
+                  <button class="app-tab" type="button" role="tab" id="apptab-crosshair" aria-controls="apppane-crosshair" aria-selected="false" tabindex="-1" data-pane="crosshair"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-crosshair"/></svg><span>Crosshair</span></button>
+                  <button class="app-tab" type="button" role="tab" id="apptab-configs" aria-controls="apppane-configs" aria-selected="false" tabindex="-1" data-pane="configs"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg><span>Configs</span></button>
+                  <button class="app-tab" type="button" role="tab" id="apptab-settings" aria-controls="apppane-settings" aria-selected="false" tabindex="-1" data-pane="settings"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gear"/></svg><span>Settings</span></button>
+                </div>
                 <div class="app-profile">
                   <span class="app-avatar" aria-hidden="true">P</span>
                   <span><small>Profile</small><strong id="app-profile-name">Default</strong></span>
@@ -140,33 +142,33 @@
 
               <div class="app-main">
                 <!-- Movement -->
-                <div class="app-pane is-active" role="tabpanel" data-pane="movement">
+                <div class="app-pane is-active" role="tabpanel" id="apppane-movement" aria-labelledby="apptab-movement" data-pane="movement">
                   <div class="app-pane-head">
-                    <h3>Movement</h3>
+                    <p class="app-pane-title">Movement</p>
                     <p>Bunny hop helper and movement overlays.</p>
                   </div>
                   <div class="app-grid">
                     <div class="app-card">
                       <div class="app-row">
-                        <span><strong>Bhop helper</strong><small>Hold your key to chain jumps</small></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true" data-flag="bhop"><span></span></button>
+                        <span><strong id="lbl-bhop">Bhop helper</strong><small>Hold your key to chain jumps</small></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true" aria-labelledby="lbl-bhop" data-flag="bhop"><span></span></button>
                       </div>
                       <div class="app-row">
-                        <span><strong>Activation key</strong><small>Click, then press any key</small></span>
-                        <button class="app-key" type="button" data-keybind>SPACE</button>
+                        <span><strong id="lbl-key">Activation key</strong><small>Click, then press any key</small></span>
+                        <button class="app-key" type="button" id="app-key" aria-labelledby="lbl-key app-key" data-keybind>SPACE</button>
                       </div>
                       <div class="app-row">
-                        <span><strong>Mode</strong></span>
-                        <div class="app-seg" role="group" aria-label="Mode">
-                          <button type="button" class="is-active">Hold</button>
-                          <button type="button">Toggle</button>
+                        <span><strong id="lbl-mode">Mode</strong></span>
+                        <div class="app-seg" role="group" aria-labelledby="lbl-mode">
+                          <button type="button" class="is-active" aria-pressed="true">Hold</button>
+                          <button type="button" aria-pressed="false">Toggle</button>
                         </div>
                       </div>
                     </div>
                     <div class="app-card app-speed">
                       <div class="app-row">
-                        <span><strong>Speed overlay</strong><small>Shows your horizontal speed</small></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true" data-flag="speed"><span></span></button>
+                        <span><strong id="lbl-speed">Speed overlay</strong><small>Shows your horizontal speed</small></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true" aria-labelledby="lbl-speed" data-flag="speed"><span></span></button>
                       </div>
                       <div class="speedo" id="speedo">
                         <span class="speedo-value" id="speedo-value">250</span>
@@ -178,9 +180,9 @@
                 </div>
 
                 <!-- Crosshair -->
-                <div class="app-pane" role="tabpanel" data-pane="crosshair" hidden>
+                <div class="app-pane" role="tabpanel" id="apppane-crosshair" aria-labelledby="apptab-crosshair" data-pane="crosshair" hidden>
                   <div class="app-pane-head">
-                    <h3>Crosshair</h3>
+                    <p class="app-pane-title">Crosshair</p>
                     <p>Design it here, apply it in one click.</p>
                   </div>
                   <div class="app-grid">
@@ -191,53 +193,53 @@
                       <label class="app-slider"><span>Length</span><input type="range" min="2" max="14" value="6" data-mini="len"></label>
                       <label class="app-slider"><span>Gap</span><input type="range" min="0" max="10" value="3" data-mini="gap"></label>
                       <label class="app-slider"><span>Thickness</span><input type="range" min="1" max="5" value="2" data-mini="thick"></label>
-                      <a class="app-link" href="#tool-crosshair" data-tool-link="crosshair">Try the full builder <svg class="icon"><use href="#i-arrow"/></svg></a>
+                      <a class="app-link" href="#tool-crosshair" data-tool-link="crosshair">Try the full builder <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
                     </div>
                   </div>
                 </div>
 
                 <!-- Configs -->
-                <div class="app-pane" role="tabpanel" data-pane="configs" hidden>
+                <div class="app-pane" role="tabpanel" id="apppane-configs" aria-labelledby="apptab-configs" data-pane="configs" hidden>
                   <div class="app-pane-head">
-                    <h3>Configs</h3>
+                    <p class="app-pane-title">Configs</p>
                     <p>Switch between setups instantly.</p>
                   </div>
-                  <div class="app-card app-list" role="listbox" aria-label="Profiles">
-                    <button class="app-item is-active" type="button" role="option" aria-selected="true" data-profile="Default"><svg class="icon"><use href="#i-file"/></svg><span><strong>Default</strong><small>Everyday settings</small></span><em>Active</em></button>
-                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Practice"><svg class="icon"><use href="#i-nade"/></svg><span><strong>Practice</strong><small>Nade lineups &amp; movement</small></span><em>Active</em></button>
-                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Surf"><svg class="icon"><use href="#i-jump"/></svg><span><strong>Surf / KZ</strong><small>Community movement servers</small></span><em>Active</em></button>
-                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Streamer"><svg class="icon"><use href="#i-monitor"/></svg><span><strong>Streamer</strong><small>Clean HUD, big radar</small></span><em>Active</em></button>
+                  <div class="app-card app-list" role="group" aria-label="Profiles">
+                    <button class="app-item is-active" type="button" aria-pressed="true" data-profile="Default"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-file"/></svg><span><strong>Default</strong><small>Everyday settings</small></span><em>Active</em></button>
+                    <button class="app-item" type="button" aria-pressed="false" data-profile="Practice"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-nade"/></svg><span><strong>Practice</strong><small>Nade lineups &amp; movement</small></span><em>Active</em></button>
+                    <button class="app-item" type="button" aria-pressed="false" data-profile="Surf"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-jump"/></svg><span><strong>Surf</strong><small>Community surf servers</small></span><em>Active</em></button>
+                    <button class="app-item" type="button" aria-pressed="false" data-profile="Streamer"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-monitor"/></svg><span><strong>Streamer</strong><small>Clean HUD, big radar</small></span><em>Active</em></button>
                   </div>
                 </div>
 
                 <!-- Settings -->
-                <div class="app-pane" role="tabpanel" data-pane="settings" hidden>
+                <div class="app-pane" role="tabpanel" id="apppane-settings" aria-labelledby="apptab-settings" data-pane="settings" hidden>
                   <div class="app-pane-head">
-                    <h3>Settings</h3>
+                    <p class="app-pane-title">Settings</p>
                     <p>Make it yours. Try the accent colors, they change this whole page.</p>
                   </div>
                   <div class="app-grid">
                     <div class="app-card">
                       <div class="app-row">
-                        <span><strong>Start with Windows</strong></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="false"><span></span></button>
+                        <span><strong id="lbl-startup">Start with Windows</strong></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="false" aria-labelledby="lbl-startup"><span></span></button>
                       </div>
                       <div class="app-row">
-                        <span><strong>Minimize to tray</strong></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true"><span></span></button>
+                        <span><strong id="lbl-tray">Minimize to tray</strong></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true" aria-labelledby="lbl-tray"><span></span></button>
                       </div>
                       <div class="app-row">
-                        <span><strong>Check for updates</strong></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true"><span></span></button>
+                        <span><strong id="lbl-updates">Check for updates</strong></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true" aria-labelledby="lbl-updates"><span></span></button>
                       </div>
                     </div>
                     <div class="app-card">
                       <span class="app-label">Accent color</span>
                       <div class="accents" role="radiogroup" aria-label="Accent color">
                         <button type="button" role="radio" aria-checked="true" class="accent-swatch" data-accent="violet" style="--a:#8b5cf6;--b:#d946ef" aria-label="Violet"></button>
-                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="crimson" style="--a:#ef4444;--b:#f97316" aria-label="Crimson"></button>
-                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="ocean" style="--a:#06b6d4;--b:#3b82f6" aria-label="Ocean"></button>
-                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="toxic" style="--a:#22c55e;--b:#a3e635" aria-label="Toxic"></button>
+                        <button type="button" role="radio" aria-checked="false" tabindex="-1" class="accent-swatch" data-accent="crimson" style="--a:#ef4444;--b:#f97316" aria-label="Crimson"></button>
+                        <button type="button" role="radio" aria-checked="false" tabindex="-1" class="accent-swatch" data-accent="ocean" style="--a:#06b6d4;--b:#3b82f6" aria-label="Ocean"></button>
+                        <button type="button" role="radio" aria-checked="false" tabindex="-1" class="accent-swatch" data-accent="toxic" style="--a:#22c55e;--b:#a3e635" aria-label="Toxic"></button>
                       </div>
                     </div>
                   </div>
@@ -260,32 +262,32 @@
 
         <div class="feature-grid">
           <article class="card feature spot reveal">
-            <span class="feature-icon"><svg class="icon"><use href="#i-jump"/></svg></span>
+            <span class="feature-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-jump"/></svg></span>
             <h3>Bhop helper</h3>
             <p>Hold one key to chain jumps. Pick your activation key and switch between hold and toggle modes.</p>
           </article>
           <article class="card feature spot reveal">
-            <span class="feature-icon"><svg class="icon"><use href="#i-crosshair"/></svg></span>
+            <span class="feature-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-crosshair"/></svg></span>
             <h3>Crosshair editor</h3>
             <p>Design your crosshair with a live preview, then apply it or copy the console commands.</p>
           </article>
           <article class="card feature spot reveal">
-            <span class="feature-icon"><svg class="icon"><use href="#i-folder"/></svg></span>
+            <span class="feature-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-folder"/></svg></span>
             <h3>Config profiles</h3>
             <p>Save setups for matchmaking, practice or community servers and swap between them in a click.</p>
           </article>
           <article class="card feature spot reveal">
-            <span class="feature-icon"><svg class="icon"><use href="#i-gauge"/></svg></span>
+            <span class="feature-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gauge"/></svg></span>
             <h3>Speed overlay</h3>
             <p>See your horizontal speed while you move, so you can tell exactly when your hops are clean.</p>
           </article>
           <article class="card feature spot reveal">
-            <span class="feature-icon"><svg class="icon"><use href="#i-keyboard"/></svg></span>
+            <span class="feature-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-keyboard"/></svg></span>
             <h3>Custom hotkeys</h3>
-            <p>Bind every feature to the keys you want. Rebind anything in seconds from the settings tab.</p>
+            <p>Bind every feature to the keys you want. Rebind anything in seconds, right next to each feature.</p>
           </article>
           <article class="card feature spot reveal">
-            <span class="feature-icon"><svg class="icon"><use href="#i-cpu"/></svg></span>
+            <span class="feature-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-cpu"/></svg></span>
             <h3>Light on resources</h3>
             <p>Sits quietly in your tray and stays out of the way of your frames.</p>
           </article>
@@ -305,16 +307,16 @@
         <div class="tool-shell reveal">
           <div class="tool-tabs" role="tablist" aria-label="Tools">
             <button class="tool-tab" role="tab" type="button" id="tab-crosshair" aria-controls="tool-crosshair" aria-selected="true" data-tool="crosshair">
-              <svg class="icon"><use href="#i-crosshair"/></svg><span>Crosshair</span>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-crosshair"/></svg><span>Crosshair</span>
             </button>
             <button class="tool-tab" role="tab" type="button" id="tab-sens" aria-controls="tool-sens" aria-selected="false" tabindex="-1" data-tool="sens">
-              <svg class="icon"><use href="#i-gauge"/></svg><span>Sensitivity</span>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-gauge"/></svg><span>Sensitivity</span>
             </button>
             <button class="tool-tab" role="tab" type="button" id="tab-autoexec" aria-controls="tool-autoexec" aria-selected="false" tabindex="-1" data-tool="autoexec">
-              <svg class="icon"><use href="#i-file"/></svg><span>Autoexec</span>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-file"/></svg><span>Autoexec</span>
             </button>
             <button class="tool-tab" role="tab" type="button" id="tab-practice" aria-controls="tool-practice" aria-selected="false" tabindex="-1" data-tool="practice">
-              <svg class="icon"><use href="#i-nade"/></svg><span>Practice</span>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-nade"/></svg><span>Practice</span>
             </button>
           </div>
 
@@ -399,10 +401,10 @@
                   <canvas id="xh-canvas" role="img" aria-label="Crosshair preview"></canvas>
                   <div class="xh-bar">
                     <div class="segmented" role="group" aria-label="Preview background">
-                      <button type="button" class="is-active" data-scene="desert">Desert</button>
-                      <button type="button" data-scene="dark">Dark</button>
-                      <button type="button" data-scene="bright">Bright</button>
-                      <button type="button" data-scene="foliage">Foliage</button>
+                      <button type="button" class="is-active" aria-pressed="true" data-scene="desert">Desert</button>
+                      <button type="button" aria-pressed="false" data-scene="dark">Dark</button>
+                      <button type="button" aria-pressed="false" data-scene="bright">Bright</button>
+                      <button type="button" aria-pressed="false" data-scene="foliage">Foliage</button>
                     </div>
                     <label class="zoom">
                       <span>Zoom</span>
@@ -419,9 +421,9 @@
                 <div class="code-block">
                   <div class="code-head">
                     <span>Console commands</span>
-                    <button class="btn btn-code" type="button" id="xh-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
+                    <button class="btn btn-code" type="button" id="xh-copy"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg>Copy</button>
                   </div>
-                  <pre><code id="xh-code"></code></pre>
+                  <pre tabindex="0" role="region" aria-label="Crosshair console commands"><code id="xh-code"></code></pre>
                 </div>
 
                 <details class="import">
@@ -474,9 +476,10 @@
                 <div class="result-card">
                   <span class="result-label" id="sens-result-label">Your Counter-Strike 2 sensitivity</span>
                   <span class="result-value" id="sens-result">—</span>
+                  <span class="sr-only" id="sens-live" aria-live="polite"></span>
                   <div class="result-actions">
-                    <button class="btn btn-code" type="button" id="sens-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
-                    <button class="btn btn-primary btn-sm" type="button" id="sens-to-autoexec">Use in autoexec <svg class="icon"><use href="#i-arrow"/></svg></button>
+                    <button class="btn btn-code" type="button" id="sens-copy"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg>Copy</button>
+                    <button class="btn btn-primary btn-sm" type="button" id="sens-to-autoexec">Use in autoexec <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></button>
                   </div>
                 </div>
 
@@ -615,11 +618,11 @@
                   <div class="code-head">
                     <span>autoexec.cfg</span>
                     <span class="code-actions">
-                      <button class="btn btn-code" type="button" id="ae-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
-                      <button class="btn btn-code btn-code-accent" type="button" id="ae-download"><svg class="icon"><use href="#i-download"/></svg>Download</button>
+                      <button class="btn btn-code" type="button" id="ae-copy"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg>Copy</button>
+                      <button class="btn btn-code btn-code-accent" type="button" id="ae-download"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Download</button>
                     </span>
                   </div>
-                  <pre><code id="ae-code"></code></pre>
+                  <pre tabindex="0" role="region" aria-label="autoexec.cfg contents"><code id="ae-code"></code></pre>
                 </div>
                 <div class="howto">
                   <h3>How to install</h3>
@@ -679,11 +682,11 @@
                   <div class="code-head">
                     <span>practice.cfg</span>
                     <span class="code-actions">
-                      <button class="btn btn-code" type="button" id="pr-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
-                      <button class="btn btn-code btn-code-accent" type="button" id="pr-download"><svg class="icon"><use href="#i-download"/></svg>Download</button>
+                      <button class="btn btn-code" type="button" id="pr-copy"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-copy"/></svg>Copy</button>
+                      <button class="btn btn-code btn-code-accent" type="button" id="pr-download"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Download</button>
                     </span>
                   </div>
-                  <pre><code id="pr-code"></code></pre>
+                  <pre tabindex="0" role="region" aria-label="practice.cfg contents"><code id="pr-code"></code></pre>
                 </div>
                 <div class="howto">
                   <h3>How to use</h3>
@@ -734,12 +737,12 @@
           <span class="kicker">FAQ</span>
           <h2>Got questions?</h2>
           <p>Still stuck? Ask in the Discord and someone will help you out.</p>
-          <a class="btn btn-ghost" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Join the Discord</a>
+          <a class="btn btn-ghost" href="#" data-link="discord"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg>Join the Discord</a>
         </div>
         <div class="faq-list reveal">
           <details class="faq">
             <summary>Where can I use the bhop helper?</summary>
-            <p>Use it on community servers that allow it, like bhop, surf and KZ servers, or on your own practice server. Valve doesn't allow movement automation on official matchmaking servers, so keep it switched off there.</p>
+            <p>Use it on community servers whose rules allow it, like many bhop and surf servers, or on your own practice server. KZ servers ban bhop scripts. Valve doesn't allow movement automation on official matchmaking servers, so keep it switched off there.</p>
           </details>
           <details class="faq">
             <summary>Which systems does FragLab run on?</summary>
@@ -774,8 +777,8 @@
           <h2>Ready to <span class="grad-text">hop in?</span></h2>
           <p>Download FragLab and set up your CS2 in a couple of clicks.</p>
           <div class="download-ctas">
-            <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download v1.0</a>
-            <a class="btn btn-ghost btn-lg" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Join Discord</a>
+            <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-download"/></svg>Download v1.0</a>
+            <a class="btn btn-ghost btn-lg" href="#" data-link="discord"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-chat"/></svg>Join Discord</a>
           </div>
           <p class="download-note">Windows 10 / 11 · 64-bit</p>
         </div>
