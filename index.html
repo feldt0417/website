@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FragLab — The all-in-one CS2 toolkit</title>
-  <meta name="description" content="Build your crosshair, convert your sensitivity, and generate autoexec and practice configs for Counter-Strike 2. Free, in your browser, nothing to install.">
-  <meta name="theme-color" content="#171321">
-  <meta property="og:title" content="FragLab — The all-in-one CS2 toolkit">
-  <meta property="og:description" content="Crosshair builder, sensitivity converter, autoexec and practice config generators for Counter-Strike 2.">
+  <title>FragLab — CS2 utility</title>
+  <meta name="description" content="FragLab is a lightweight CS2 utility: bhop helper, crosshair editor and config tools in one clean app. Plus free web tools for crosshairs, sensitivity and configs.">
+  <meta name="theme-color" content="#07070c">
+  <meta property="og:title" content="FragLab — CS2 utility">
+  <meta property="og:description" content="Bhop helper, crosshair editor and config tools for Counter-Strike 2 in one clean app.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/tools.js" defer></script>
@@ -23,9 +23,8 @@
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
       <linearGradient id="brand-grad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#fca326"/>
-        <stop offset=".5" stop-color="#fc6d26"/>
-        <stop offset="1" stop-color="#e24329"/>
+        <stop offset="0" style="stop-color: var(--accent)"/>
+        <stop offset="1" style="stop-color: var(--accent-2)"/>
       </linearGradient>
     </defs>
     <symbol id="logo" viewBox="0 0 32 32">
@@ -37,31 +36,25 @@
     <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M3.5 17a9 9 0 1 1 17 0"/><path d="m12 15 4-5"/><circle cx="12" cy="15" r="1.5"/></symbol>
     <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
     <symbol id="i-nade" viewBox="0 0 24 24"><circle cx="11" cy="14.5" r="6.5"/><path d="M9 8.4V5.5h4v2.9M13 5.5l3.5-2.5M16.5 7.5l2 1"/></symbol>
+    <symbol id="i-jump" viewBox="0 0 24 24"><path d="M12 14V3M7.5 7.5 12 3l4.5 4.5M4 21h16M7 17.5h10"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
-    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
-    <symbol id="i-browser" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></symbol>
-    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
-    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+    <symbol id="i-square" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/></symbol>
   </svg>
 
   <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- Announcement bar -->
-  <div class="announce">
-    <div class="container announce-inner">
-      <span class="announce-tag">New</span>
-      <span class="announce-text">The practice config generator is live — spin up a nade-practice server with one command.</span>
-      <a class="announce-link" href="#tool-practice" data-tool-link="practice">Try it <svg class="icon"><use href="#i-arrow"/></svg></a>
-    </div>
-  </div>
 
   <!-- Header -->
   <header class="site-header" id="top">
@@ -78,38 +71,14 @@
 
       <div class="nav-menu" id="nav-menu">
         <ul class="nav-links">
-          <li class="has-dropdown">
-            <button class="nav-link" type="button" aria-expanded="false" aria-controls="dd-tools">
-              Tools <svg class="icon chev"><use href="#i-chevron"/></svg>
-            </button>
-            <div class="dropdown" id="dd-tools">
-              <p class="dropdown-title">The toolkit</p>
-              <a class="dropdown-item" href="#tool-crosshair" data-tool-link="crosshair">
-                <span class="di-icon tone-orange"><svg class="icon"><use href="#i-crosshair"/></svg></span>
-                <span><strong>Crosshair builder</strong><small>Design, preview and copy commands</small></span>
-              </a>
-              <a class="dropdown-item" href="#tool-sens" data-tool-link="sens">
-                <span class="di-icon tone-amber"><svg class="icon"><use href="#i-gauge"/></svg></span>
-                <span><strong>Sensitivity converter</strong><small>Bring your aim over from any game</small></span>
-              </a>
-              <a class="dropdown-item" href="#tool-autoexec" data-tool-link="autoexec">
-                <span class="di-icon tone-purple"><svg class="icon"><use href="#i-file"/></svg></span>
-                <span><strong>Autoexec generator</strong><small>Your whole setup in one .cfg file</small></span>
-              </a>
-              <a class="dropdown-item" href="#tool-practice" data-tool-link="practice">
-                <span class="di-icon tone-red"><svg class="icon"><use href="#i-nade"/></svg></span>
-                <span><strong>Practice config</strong><small>Infinite nades, trajectories, no bots</small></span>
-              </a>
-            </div>
-          </li>
-          <li><a class="nav-link" href="#platform">Platform</a></li>
-          <li><a class="nav-link" href="#why">Why FragLab</a></li>
-          <li><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li><a class="nav-link" href="#features">Features</a></li>
+          <li><a class="nav-link" href="#tools">Web tools</a></li>
+          <li><a class="nav-link" href="#install">Install</a></li>
           <li><a class="nav-link" href="#faq">FAQ</a></li>
         </ul>
         <div class="nav-actions">
-          <a class="btn btn-ghost btn-sm" href="#faq">Docs</a>
-          <a class="btn btn-accent btn-sm" href="#tools">Get started free</a>
+          <a class="btn btn-ghost btn-sm" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Discord</a>
+          <a class="btn btn-primary btn-sm" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download</a>
         </div>
       </div>
     </nav>
@@ -119,127 +88,218 @@
 
     <!-- Hero -->
     <section class="hero">
+      <canvas class="hero-particles" id="particles" aria-hidden="true"></canvas>
       <div class="hero-glow" aria-hidden="true"></div>
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow eyebrow-dark">The Counter-Strike 2 toolkit</p>
-          <h1>The most complete <span class="grad-text">CS2 toolkit</span> for serious players</h1>
-          <p class="lead">Build your crosshair, convert your sensitivity, and generate autoexec and practice configs. It's all in one place and runs right in your browser.</p>
-          <div class="hero-ctas">
-            <a class="btn btn-accent btn-lg" href="#tools">Get started — it's free</a>
-            <a class="btn btn-ghost btn-lg" href="#platform">See how it works</a>
-          </div>
-          <ul class="hero-points">
-            <li><svg class="icon"><use href="#i-check"/></svg>No install, no sign-up</li>
-            <li><svg class="icon"><use href="#i-check"/></svg>Never touches the game client</li>
-            <li><svg class="icon"><use href="#i-check"/></svg>Works on any device</li>
-          </ul>
-        </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="mock">
-            <div class="mock-bar">
-              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-              <span class="mock-title">FragLab · Crosshair builder</span>
-            </div>
-            <div class="mock-body">
-              <div class="mock-side">
-                <span class="mock-item is-active"><svg class="icon"><use href="#i-crosshair"/></svg>Crosshair</span>
-                <span class="mock-item"><svg class="icon"><use href="#i-gauge"/></svg>Sensitivity</span>
-                <span class="mock-item"><svg class="icon"><use href="#i-file"/></svg>Autoexec</span>
-                <span class="mock-item"><svg class="icon"><use href="#i-nade"/></svg>Practice</span>
+      <div class="container hero-inner">
+        <a class="pill" href="#features">
+          <span class="pill-dot"></span>
+          <span>Version 1.0 is out</span>
+          <svg class="icon"><use href="#i-arrow"/></svg>
+        </a>
+        <h1 class="hero-title"><span class="glow-text">FragLab</span></h1>
+        <p class="hero-sub">A lightweight CS2 utility. Bhop helper, crosshair editor and config tools in one clean app.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download for Windows</a>
+          <a class="btn btn-ghost btn-lg" href="#features">Explore features</a>
+        </div>
+        <ul class="hero-meta">
+          <li><svg class="icon"><use href="#i-monitor"/></svg>Windows 10 / 11</li>
+          <li><svg class="icon"><use href="#i-cpu"/></svg>Lightweight</li>
+          <li><svg class="icon"><use href="#i-refresh"/></svg>Regular updates</li>
+        </ul>
+
+        <!-- Interactive app preview -->
+        <div class="app-wrap">
+          <div class="app" id="app-preview">
+            <div class="app-titlebar">
+              <div class="app-brand">
+                <svg class="app-logo" aria-hidden="true"><use href="#logo"/></svg>
+                <span>FragLab</span>
+                <span class="app-version">v1.0</span>
               </div>
-              <div class="mock-main">
-                <div class="mock-scene">
-                  <div class="mock-sun"></div>
-                  <div class="mock-wall"></div>
-                  <div class="mock-door"></div>
-                  <div class="mock-ground"></div>
-                  <div class="mock-xh">
-                    <i class="l t"></i><i class="l r"></i><i class="l b"></i><i class="l lft"></i>
+              <span class="app-hint">Interactive preview</span>
+              <div class="app-controls" aria-hidden="true">
+                <span><svg class="icon"><use href="#i-minus"/></svg></span>
+                <span><svg class="icon"><use href="#i-square"/></svg></span>
+                <span class="app-close"><svg class="icon"><use href="#i-close"/></svg></span>
+              </div>
+            </div>
+
+            <div class="app-body">
+              <div class="app-side" role="tablist" aria-label="App sections">
+                <button class="app-tab is-active" type="button" role="tab" aria-selected="true" data-pane="movement"><svg class="icon"><use href="#i-jump"/></svg><span>Movement</span></button>
+                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="crosshair"><svg class="icon"><use href="#i-crosshair"/></svg><span>Crosshair</span></button>
+                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="configs"><svg class="icon"><use href="#i-folder"/></svg><span>Configs</span></button>
+                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="settings"><svg class="icon"><use href="#i-gear"/></svg><span>Settings</span></button>
+                <div class="app-profile">
+                  <span class="app-avatar" aria-hidden="true">P</span>
+                  <span><small>Profile</small><strong id="app-profile-name">Default</strong></span>
+                </div>
+              </div>
+
+              <div class="app-main">
+                <!-- Movement -->
+                <div class="app-pane is-active" role="tabpanel" data-pane="movement">
+                  <div class="app-pane-head">
+                    <h3>Movement</h3>
+                    <p>Bunny hop helper and movement overlays.</p>
+                  </div>
+                  <div class="app-grid">
+                    <div class="app-card">
+                      <div class="app-row">
+                        <span><strong>Bhop helper</strong><small>Hold your key to chain jumps</small></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true" data-flag="bhop"><span></span></button>
+                      </div>
+                      <div class="app-row">
+                        <span><strong>Activation key</strong><small>Click, then press any key</small></span>
+                        <button class="app-key" type="button" data-keybind>SPACE</button>
+                      </div>
+                      <div class="app-row">
+                        <span><strong>Mode</strong></span>
+                        <div class="app-seg" role="group" aria-label="Mode">
+                          <button type="button" class="is-active">Hold</button>
+                          <button type="button">Toggle</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="app-card app-speed">
+                      <div class="app-row">
+                        <span><strong>Speed overlay</strong><small>Shows your horizontal speed</small></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true" data-flag="speed"><span></span></button>
+                      </div>
+                      <div class="speedo" id="speedo">
+                        <span class="speedo-value" id="speedo-value">250</span>
+                        <span class="speedo-unit">u/s</span>
+                        <svg class="speedo-graph" viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden="true"><polyline id="speedo-line" points=""/></svg>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="mock-controls">
-                  <div class="mock-slider"><span>Size</span><b><i style="width:30%"></i></b></div>
-                  <div class="mock-slider"><span>Gap</span><b><i style="width:42%"></i></b></div>
-                  <div class="mock-slider"><span>Thickness</span><b><i style="width:18%"></i></b></div>
+
+                <!-- Crosshair -->
+                <div class="app-pane" role="tabpanel" data-pane="crosshair" hidden>
+                  <div class="app-pane-head">
+                    <h3>Crosshair</h3>
+                    <p>Design it here, apply it in one click.</p>
+                  </div>
+                  <div class="app-grid">
+                    <div class="app-card app-xh-preview">
+                      <div class="mini-xh" id="mini-xh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                    </div>
+                    <div class="app-card">
+                      <label class="app-slider"><span>Length</span><input type="range" min="2" max="14" value="6" data-mini="len"></label>
+                      <label class="app-slider"><span>Gap</span><input type="range" min="0" max="10" value="3" data-mini="gap"></label>
+                      <label class="app-slider"><span>Thickness</span><input type="range" min="1" max="5" value="2" data-mini="thick"></label>
+                      <a class="app-link" href="#tool-crosshair" data-tool-link="crosshair">Try the full builder <svg class="icon"><use href="#i-arrow"/></svg></a>
+                    </div>
+                  </div>
                 </div>
-                <pre class="mock-code"><span class="c-cmd">cl_crosshairsize</span> <span class="c-val">2</span>; <span class="c-cmd">cl_crosshairgap</span> <span class="c-val">-3</span>; <span class="c-cmd">cl_crosshaircolor</span> <span class="c-val">1</span></pre>
+
+                <!-- Configs -->
+                <div class="app-pane" role="tabpanel" data-pane="configs" hidden>
+                  <div class="app-pane-head">
+                    <h3>Configs</h3>
+                    <p>Switch between setups instantly.</p>
+                  </div>
+                  <div class="app-card app-list" role="listbox" aria-label="Profiles">
+                    <button class="app-item is-active" type="button" role="option" aria-selected="true" data-profile="Default"><svg class="icon"><use href="#i-file"/></svg><span><strong>Default</strong><small>Everyday settings</small></span><em>Active</em></button>
+                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Practice"><svg class="icon"><use href="#i-nade"/></svg><span><strong>Practice</strong><small>Nade lineups &amp; movement</small></span><em>Active</em></button>
+                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Surf"><svg class="icon"><use href="#i-jump"/></svg><span><strong>Surf / KZ</strong><small>Community movement servers</small></span><em>Active</em></button>
+                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Streamer"><svg class="icon"><use href="#i-monitor"/></svg><span><strong>Streamer</strong><small>Clean HUD, big radar</small></span><em>Active</em></button>
+                  </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="app-pane" role="tabpanel" data-pane="settings" hidden>
+                  <div class="app-pane-head">
+                    <h3>Settings</h3>
+                    <p>Make it yours. Try the accent colors, they change this whole page.</p>
+                  </div>
+                  <div class="app-grid">
+                    <div class="app-card">
+                      <div class="app-row">
+                        <span><strong>Start with Windows</strong></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="false"><span></span></button>
+                      </div>
+                      <div class="app-row">
+                        <span><strong>Minimize to tray</strong></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true"><span></span></button>
+                      </div>
+                      <div class="app-row">
+                        <span><strong>Check for updates</strong></span>
+                        <button class="app-switch" type="button" role="switch" aria-checked="true"><span></span></button>
+                      </div>
+                    </div>
+                    <div class="app-card">
+                      <span class="app-label">Accent color</span>
+                      <div class="accents" role="radiogroup" aria-label="Accent color">
+                        <button type="button" role="radio" aria-checked="true" class="accent-swatch" data-accent="violet" style="--a:#8b5cf6;--b:#d946ef" aria-label="Violet"></button>
+                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="crimson" style="--a:#ef4444;--b:#f97316" aria-label="Crimson"></button>
+                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="ocean" style="--a:#06b6d4;--b:#3b82f6" aria-label="Ocean"></button>
+                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="toxic" style="--a:#22c55e;--b:#a3e635" aria-label="Toxic"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="float-card float-a">
-            <span class="fc-icon tone-amber"><svg class="icon"><use href="#i-gauge"/></svg></span>
-            <span><small>CS2 eDPI</small><strong>800</strong></span>
-          </div>
-          <div class="float-card float-b">
-            <span class="fc-icon tone-purple"><svg class="icon"><use href="#i-download"/></svg></span>
-            <span><small>Exported</small><strong>autoexec.cfg</strong></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Map marquee (like a "trusted by" logo row) -->
-      <div class="marquee-wrap">
-        <p class="marquee-label">Dialed in for every map you queue</p>
-        <div class="marquee" aria-hidden="true">
-          <div class="marquee-track">
-            <span>Dust II</span><span>Mirage</span><span>Inferno</span><span>Nuke</span><span>Ancient</span><span>Anubis</span><span>Train</span><span>Overpass</span><span>Vertigo</span>
-            <span>Dust II</span><span>Mirage</span><span>Inferno</span><span>Nuke</span><span>Ancient</span><span>Anubis</span><span>Train</span><span>Overpass</span><span>Vertigo</span>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Lifecycle / platform -->
-    <section class="section" id="platform">
-      <div class="container">
-        <div class="section-head center reveal">
-          <p class="eyebrow">One toolkit, every stage</p>
-          <h2>From your first click to the last round</h2>
-          <p>FragLab covers your whole setup. Dial in each stage, then export everything as one config you can load in seconds.</p>
-        </div>
-
-        <ol class="lifecycle">
-          <li class="stage reveal" style="--tone: var(--orange)">
-            <span class="stage-num">01</span>
-            <span class="stage-icon"><svg class="icon"><use href="#i-crosshair"/></svg></span>
-            <h3>Aim</h3>
-            <p>Design a crosshair with a true-to-scale preview on bright, dark and busy backgrounds.</p>
-            <a class="stage-link" href="#tool-crosshair" data-tool-link="crosshair">Build a crosshair <svg class="icon"><use href="#i-arrow"/></svg></a>
-          </li>
-          <li class="stage reveal" style="--tone: var(--amber)">
-            <span class="stage-num">02</span>
-            <span class="stage-icon"><svg class="icon"><use href="#i-gauge"/></svg></span>
-            <h3>Tune</h3>
-            <p>Bring your muscle memory over from Valorant, Apex, Overwatch 2 and more, using exact yaw maths.</p>
-            <a class="stage-link" href="#tool-sens" data-tool-link="sens">Convert sensitivity <svg class="icon"><use href="#i-arrow"/></svg></a>
-          </li>
-          <li class="stage reveal" style="--tone: var(--purple)">
-            <span class="stage-num">03</span>
-            <span class="stage-icon"><svg class="icon"><use href="#i-file"/></svg></span>
-            <h3>Configure</h3>
-            <p>Roll your mouse, crosshair, viewmodel, HUD, radar and binds into a single autoexec.cfg.</p>
-            <a class="stage-link" href="#tool-autoexec" data-tool-link="autoexec">Generate autoexec <svg class="icon"><use href="#i-arrow"/></svg></a>
-          </li>
-          <li class="stage reveal" style="--tone: var(--red)">
-            <span class="stage-num">04</span>
-            <span class="stage-icon"><svg class="icon"><use href="#i-nade"/></svg></span>
-            <h3>Practice</h3>
-            <p>Turn any map into a lineup lab with infinite nades, trajectories, rethrow binds and no bots.</p>
-            <a class="stage-link" href="#tool-practice" data-tool-link="practice">Create practice config <svg class="icon"><use href="#i-arrow"/></svg></a>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Tools -->
-    <section class="section section-soft" id="tools">
+    <!-- Features -->
+    <section class="section" id="features">
       <div class="container">
         <div class="section-head reveal">
-          <p class="eyebrow">Live tools</p>
-          <h2>Try it right now. No account needed.</h2>
-          <p>Every tool runs locally in your browser and outputs plain console commands or .cfg files.</p>
+          <span class="kicker">Features</span>
+          <h2>Everything you need, <span class="grad-text">nothing you don't</span></h2>
+          <p>One small app that handles the fiddly parts of your CS2 setup, so you can get back to playing.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="card feature spot reveal">
+            <span class="feature-icon"><svg class="icon"><use href="#i-jump"/></svg></span>
+            <h3>Bhop helper</h3>
+            <p>Hold one key to chain jumps. Pick your activation key and switch between hold and toggle modes.</p>
+          </article>
+          <article class="card feature spot reveal">
+            <span class="feature-icon"><svg class="icon"><use href="#i-crosshair"/></svg></span>
+            <h3>Crosshair editor</h3>
+            <p>Design your crosshair with a live preview, then apply it or copy the console commands.</p>
+          </article>
+          <article class="card feature spot reveal">
+            <span class="feature-icon"><svg class="icon"><use href="#i-folder"/></svg></span>
+            <h3>Config profiles</h3>
+            <p>Save setups for matchmaking, practice or community servers and swap between them in a click.</p>
+          </article>
+          <article class="card feature spot reveal">
+            <span class="feature-icon"><svg class="icon"><use href="#i-gauge"/></svg></span>
+            <h3>Speed overlay</h3>
+            <p>See your horizontal speed while you move, so you can tell exactly when your hops are clean.</p>
+          </article>
+          <article class="card feature spot reveal">
+            <span class="feature-icon"><svg class="icon"><use href="#i-keyboard"/></svg></span>
+            <h3>Custom hotkeys</h3>
+            <p>Bind every feature to the keys you want. Rebind anything in seconds from the settings tab.</p>
+          </article>
+          <article class="card feature spot reveal">
+            <span class="feature-icon"><svg class="icon"><use href="#i-cpu"/></svg></span>
+            <h3>Light on resources</h3>
+            <p>Sits quietly in your tray and stays out of the way of your frames.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Web tools -->
+    <section class="section section-alt" id="tools">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Free web tools</span>
+          <h2>No download? <span class="grad-text">No problem.</span></h2>
+          <p>Build a crosshair, convert your sensitivity and generate configs right here in your browser.</p>
         </div>
 
         <div class="tool-shell reveal">
@@ -640,139 +700,84 @@
       </div>
     </section>
 
-    <!-- Why -->
-    <section class="section section-dark" id="why">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow eyebrow-dark">Why FragLab</p>
-          <h2>Built for players, not for page views</h2>
-          <p>No ads in your face, no account walls, and no downloads you have to trust. Just the tools.</p>
-        </div>
-        <div class="feature-grid">
-          <article class="feature reveal">
-            <span class="feature-icon tone-orange"><svg class="icon"><use href="#i-browser"/></svg></span>
-            <h3>Nothing to install</h3>
-            <p>Everything runs in the browser on desktop, laptop or phone. Open a tab and start tweaking.</p>
-          </article>
-          <article class="feature reveal">
-            <span class="feature-icon tone-purple"><svg class="icon"><use href="#i-shield"/></svg></span>
-            <h3>Safe by design</h3>
-            <p>FragLab only produces text, either console commands or .cfg files. No overlays, no injection, no memory reading.</p>
-          </article>
-          <article class="feature reveal">
-            <span class="feature-icon tone-amber"><svg class="icon"><use href="#i-lock"/></svg></span>
-            <h3>Private by default</h3>
-            <p>Your settings never leave your device. There's no backend to send them to.</p>
-          </article>
-          <article class="feature reveal">
-            <span class="feature-icon tone-red"><svg class="icon"><use href="#i-link"/></svg></span>
-            <h3>Tools that talk to each other</h3>
-            <p>Send your converted sensitivity and crosshair straight into the autoexec without retyping a thing.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="section" id="pricing">
+    <!-- Install -->
+    <section class="section" id="install">
       <div class="container">
         <div class="section-head center reveal">
-          <p class="eyebrow">Pricing</p>
-          <h2>Free where it matters</h2>
-          <p>Every tool on this page is free, forever. Paid plans for power users and teams are on the way.</p>
+          <span class="kicker">Get started</span>
+          <h2>Up and running in <span class="grad-text">under a minute</span></h2>
         </div>
-        <div class="pricing-grid">
-          <article class="plan plan-featured reveal">
-            <span class="plan-badge">Available now</span>
-            <h3>Free</h3>
-            <p class="plan-desc">The full toolkit for every player.</p>
-            <p class="plan-price"><span>$0</span> forever</p>
-            <a class="btn btn-accent btn-block" href="#tools">Start building</a>
-            <ul class="plan-list">
-              <li><svg class="icon"><use href="#i-check"/></svg>Crosshair builder &amp; import</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Sensitivity converter</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Autoexec generator</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Practice config generator</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Unlimited copies &amp; downloads</li>
-            </ul>
-          </article>
-          <article class="plan reveal">
-            <span class="plan-badge plan-badge-muted">Coming soon</span>
-            <h3>Pro</h3>
-            <p class="plan-desc">For players who switch setups a lot.</p>
-            <p class="plan-price"><span>TBA</span></p>
-            <span class="btn btn-outline btn-block is-disabled" aria-disabled="true">Coming soon</span>
-            <ul class="plan-list">
-              <li><svg class="icon"><use href="#i-check"/></svg>Everything in Free</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Saved profiles per role</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Crosshair share-code import</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Sync configs across PCs</li>
-            </ul>
-          </article>
-          <article class="plan reveal">
-            <span class="plan-badge plan-badge-muted">Coming soon</span>
-            <h3>Team</h3>
-            <p class="plan-desc">For 5-stacks, clubs and coaches.</p>
-            <p class="plan-price"><span>TBA</span></p>
-            <span class="btn btn-outline btn-block is-disabled" aria-disabled="true">Coming soon</span>
-            <ul class="plan-list">
-              <li><svg class="icon"><use href="#i-check"/></svg>Everything in Pro</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Shared team configs</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Practice server presets</li>
-              <li><svg class="icon"><use href="#i-check"/></svg>Coach &amp; analyst seats</li>
-            </ul>
-          </article>
-        </div>
+        <ol class="steps">
+          <li class="card step spot reveal">
+            <span class="step-num">01</span>
+            <h3>Download</h3>
+            <p>Grab the latest version from the download button. It's a single small file.</p>
+          </li>
+          <li class="card step spot reveal">
+            <span class="step-num">02</span>
+            <h3>Run it</h3>
+            <p>Open FragLab. There's no installer wizard and nothing else to set up.</p>
+          </li>
+          <li class="card step spot reveal">
+            <span class="step-num">03</span>
+            <h3>Pick your settings</h3>
+            <p>Choose a profile, set your keys and launch CS2. Your settings are saved for next time.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section class="section section-soft" id="faq">
+    <section class="section section-alt" id="faq">
       <div class="container faq-wrap">
         <div class="section-head reveal">
-          <p class="eyebrow">FAQ</p>
-          <h2>Questions, answered</h2>
-          <p>Can't find what you need? The tools themselves include step-by-step install notes.</p>
+          <span class="kicker">FAQ</span>
+          <h2>Got questions?</h2>
+          <p>Still stuck? Ask in the Discord and someone will help you out.</p>
+          <a class="btn btn-ghost" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Join the Discord</a>
         </div>
         <div class="faq-list reveal">
           <details class="faq">
-            <summary>Can FragLab get me VAC banned?</summary>
-            <p>No. FragLab never interacts with the game. It generates console commands and .cfg files that only use Valve's own built-in settings, the same ones you could type into the console yourself.</p>
+            <summary>Where can I use the bhop helper?</summary>
+            <p>Use it on community servers that allow it, like bhop, surf and KZ servers, or on your own practice server. Valve doesn't allow movement automation on official matchmaking servers, so keep it switched off there.</p>
           </details>
           <details class="faq">
-            <summary>Where do I put my autoexec.cfg?</summary>
-            <p>Save it to <code>Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\</code>. Then, in Steam, right-click CS2 → Properties → Launch options and add <code>+exec autoexec</code>.</p>
+            <summary>Which systems does FragLab run on?</summary>
+            <p>Windows 10 and Windows 11, 64-bit.</p>
           </details>
           <details class="faq">
-            <summary>How do I load the practice config?</summary>
-            <p>Save <code>practice.cfg</code> to the same cfg folder. In game, open the console, type <code>map de_mirage</code> (or any map) to start a local server, then run <code>exec practice</code>.</p>
+            <summary>Do the web tools need the app?</summary>
+            <p>No. The crosshair builder, sensitivity converter and config generators on this page run entirely in your browser. Nothing is uploaded anywhere.</p>
           </details>
           <details class="faq">
-            <summary>How accurate is the crosshair preview?</summary>
-            <p>At 1× zoom, the preview approximates how the crosshair looks on a 1080p screen. The exact pixels depend on your resolution and aspect ratio, so give it a quick check in game before a match.</p>
+            <summary>Where do I put autoexec.cfg and practice.cfg?</summary>
+            <p>Save them to <code>Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\</code>. Add <code>+exec autoexec</code> to CS2's launch options in Steam. For practice, start a local map with <code>map de_mirage</code> and run <code>exec practice</code>.</p>
           </details>
           <details class="faq">
-            <summary>Can I import a crosshair share code (CSGO-xxxxx)?</summary>
-            <p>Not yet. Share-code support is planned. For now, paste your <code>cl_crosshair…</code> console commands into the importer. You can also import share codes directly in CS2 under Settings → Game → Crosshair.</p>
+            <summary>How do I get updates?</summary>
+            <p>FragLab can check for updates on launch (you can turn this off in Settings). New releases are also announced in the Discord.</p>
           </details>
           <details class="faq">
-            <summary>Why does the sensitivity converter only list some games?</summary>
-            <p>FragLab only lists games with a fixed, known yaw (degrees turned per mouse count). That's what makes an exact conversion possible instead of a guess.</p>
+            <summary>Is FragLab affiliated with Valve?</summary>
+            <p>No. FragLab is an independent project and isn't affiliated with or endorsed by Valve Corporation.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
-      <div class="container cta-inner reveal">
-        <div>
-          <h2>Your perfect setup is a few clicks away</h2>
-          <p>Build it once, load it everywhere. Free, forever.</p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-dark btn-lg" href="#tools">Get started free</a>
-          <a class="btn btn-ghost-dark btn-lg" href="#faq">Read the FAQ</a>
+    <!-- Download -->
+    <section class="section download" id="download">
+      <div class="container">
+        <div class="download-card reveal">
+          <div class="download-glow" aria-hidden="true"></div>
+          <svg class="download-logo" aria-hidden="true"><use href="#logo"/></svg>
+          <h2>Ready to <span class="grad-text">hop in?</span></h2>
+          <p>Download FragLab and set up your CS2 in a couple of clicks.</p>
+          <div class="download-ctas">
+            <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download v1.0</a>
+            <a class="btn btn-ghost btn-lg" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Join Discord</a>
+          </div>
+          <p class="download-note">Windows 10 / 11 · 64-bit</p>
         </div>
       </div>
     </section>
@@ -780,37 +785,25 @@
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="container footer-grid">
+    <div class="container footer-inner">
       <div class="footer-brand">
         <a class="brand" href="#top" aria-label="FragLab home">
           <svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg>
           <span class="brand-name">FragLab</span>
         </a>
-        <p>The all-in-one toolkit for Counter-Strike 2 players.</p>
+        <p>A lightweight utility for Counter-Strike 2 players.</p>
       </div>
-      <nav class="footer-col" aria-label="Tools">
-        <h4>Tools</h4>
-        <a href="#tool-crosshair" data-tool-link="crosshair">Crosshair builder</a>
-        <a href="#tool-sens" data-tool-link="sens">Sensitivity converter</a>
-        <a href="#tool-autoexec" data-tool-link="autoexec">Autoexec generator</a>
-        <a href="#tool-practice" data-tool-link="practice">Practice config</a>
-      </nav>
-      <nav class="footer-col" aria-label="Product">
-        <h4>Product</h4>
-        <a href="#platform">Platform</a>
-        <a href="#why">Why FragLab</a>
-        <a href="#pricing">Pricing</a>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#features">Features</a>
+        <a href="#tools">Web tools</a>
+        <a href="#install">Install</a>
         <a href="#faq">FAQ</a>
-      </nav>
-      <nav class="footer-col" aria-label="Resources">
-        <h4>Resources</h4>
-        <a href="https://www.counter-strike.net/" target="_blank" rel="noopener">Official CS2 site</a>
-        <a href="https://store.steampowered.com/app/730/" target="_blank" rel="noopener">CS2 on Steam</a>
+        <a href="#" data-link="discord">Discord</a>
       </nav>
     </div>
     <div class="container footer-bottom">
       <p>© <span id="year">2026</span> FragLab</p>
-      <p class="disclaimer">Not affiliated with or endorsed by Valve Corporation. Counter-Strike and CS2 are trademarks of Valve Corporation.</p>
+      <p>Not affiliated with or endorsed by Valve Corporation. Counter-Strike and CS2 are trademarks of Valve Corporation.</p>
     </div>
   </footer>
 
