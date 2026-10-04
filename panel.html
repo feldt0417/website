@@ -22,6 +22,8 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.3-3.8 4.3-5.5 8-5.5s6.7 1.7 8 5.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
   </svg>
 
@@ -65,6 +67,7 @@
             <button class="pn-switch-btn is-active" type="button" role="tab" aria-selected="true" data-mode="login">Log in</button>
             <button class="pn-switch-btn" type="button" role="tab" aria-selected="false" data-mode="signup">Sign up</button>
           </div>
+          <p class="pn-note" id="auth-buy-note" hidden></p>
           <h1 class="pn-title" id="auth-title">Welcome back</h1>
           <form class="pn-form" id="auth-form" novalidate>
             <label class="pn-field">
@@ -124,6 +127,14 @@
           <button class="btn btn-ghost btn-sm" type="button" id="logout">Log out</button>
         </div>
 
+        <div class="pn-banner" id="pay-banner" role="status" aria-live="polite" hidden>
+          <span class="pn-spinner pn-spinner-sm" id="pay-spin" aria-hidden="true"></span>
+          <div>
+            <p class="pn-banner-title" id="pay-title"></p>
+            <p class="pn-muted" id="pay-text"></p>
+          </div>
+        </div>
+
         <div class="pn-grid">
           <article class="card pn-card pn-sub">
             <div class="pn-card-top">
@@ -133,7 +144,7 @@
             <p class="pn-plan" id="sub-plan"></p>
             <p class="pn-muted" id="sub-detail"></p>
             <div class="pn-bar" id="sub-bar" hidden><span id="sub-bar-fill"></span></div>
-            <a class="btn btn-ghost pn-full" href="index.html#pricing" id="sub-cta" hidden>View plans</a>
+            <a class="btn btn-ghost pn-full" href="#store" id="sub-cta" hidden>View plans</a>
           </article>
 
           <article class="card pn-card pn-dl">
@@ -149,7 +160,31 @@
             </button>
           </article>
 
-          <article class="card pn-card pn-acct">
+          <article class="card pn-card pn-wide" id="store">
+            <div class="pn-card-top">
+              <h2 class="pn-label">Store</h2>
+              <span class="pn-hint">Pay with crypto · activates automatically</span>
+            </div>
+            <div class="pn-plans" id="store-plans"></div>
+            <p class="pn-msg" id="store-msg" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="card pn-card pn-wide" id="keys">
+            <div class="pn-card-top">
+              <h2 class="pn-label">Your keys</h2>
+            </div>
+            <ul class="pn-keys" id="keys-list"></ul>
+            <form class="pn-form pn-inline" id="redeem-form" novalidate>
+              <label class="pn-field">
+                <span>Redeem a key</span>
+                <input type="text" name="key" placeholder="RVNT-XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" maxlength="40" required>
+              </label>
+              <button class="btn btn-ghost" type="submit">Redeem</button>
+            </form>
+            <p class="pn-msg" id="redeem-msg" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="card pn-card pn-acct pn-wide">
             <div class="pn-card-top">
               <h2 class="pn-label">Account</h2>
             </div>
