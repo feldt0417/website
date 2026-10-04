@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="assets/css/menu.css">
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/menu.js" defer></script>
-  <script src="assets/js/tools.js" defer></script>
 </head>
 <body>
 
@@ -67,7 +66,8 @@
       </a>
       <ul class="nav-links">
         <li><a class="nav-link" href="#pricing">Pricing</a></li>
-        <li><a class="nav-link" href="panel.html">Panel</a></li>
+        <li><a class="nav-link" href="#faq">FAQ</a></li>
+        <li><a class="btn btn-primary btn-sm nav-cta" href="panel.html">Panel</a></li>
       </ul>
     </nav>
   </header>
@@ -81,11 +81,17 @@
 
       <div class="container hero-inner">
         <h1 class="hero-title"><span class="glow-text">REVENANT</span></h1>
+        <p class="hero-sub">Everything lives in one clean menu. Pay with crypto and your plan turns on by itself.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="#pricing">See plans</a>
+          <a class="btn btn-ghost btn-lg" href="panel.html">Open the panel</a>
+        </div>
 
         <div class="app-wrap">
           <div class="rv" id="rv-menu">
             <img class="menu-shot" src="assets/img/menu.png" width="806" height="510" alt="Revenant menu">
           </div>
+          <p class="app-caption">Live preview. Click through the tabs.</p>
         </div>
       </div>
     </section>
@@ -136,520 +142,100 @@
             <a class="btn btn-ghost price-btn" href="panel.html?buy=lifetime">Buy Lifetime</a>
           </article>
         </div>
+        <p class="price-note reveal">Checkout by NOWPayments. Pay in BTC, ETH, LTC, USDT and more. Buying again adds time on top of what you have left.</p>
       </div>
     </section>
 
-    <!-- Web tools -->
-    <section class="section section-alt" id="tools" hidden>
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="kicker">Free web tools</span>
-          <h2>No download? <span class="grad-text">No problem.</span></h2>
-          <p>Build a crosshair, convert your sensitivity and generate configs right here in your browser.</p>
-        </div>
-
-        <div class="tool-shell reveal">
-          <div class="tool-tabs" role="tablist" aria-label="Tools">
-            <button class="tool-tab" role="tab" type="button" id="tab-crosshair" aria-controls="tool-crosshair" aria-selected="true" data-tool="crosshair">
-              <svg class="icon"><use href="#i-crosshair"/></svg><span>Crosshair</span>
-            </button>
-            <button class="tool-tab" role="tab" type="button" id="tab-sens" aria-controls="tool-sens" aria-selected="false" tabindex="-1" data-tool="sens">
-              <svg class="icon"><use href="#i-gauge"/></svg><span>Sensitivity</span>
-            </button>
-            <button class="tool-tab" role="tab" type="button" id="tab-autoexec" aria-controls="tool-autoexec" aria-selected="false" tabindex="-1" data-tool="autoexec">
-              <svg class="icon"><use href="#i-file"/></svg><span>Autoexec</span>
-            </button>
-            <button class="tool-tab" role="tab" type="button" id="tab-practice" aria-controls="tool-practice" aria-selected="false" tabindex="-1" data-tool="practice">
-              <svg class="icon"><use href="#i-nade"/></svg><span>Practice</span>
-            </button>
-          </div>
-
-          <!-- Crosshair builder -->
-          <div class="tool-panel" role="tabpanel" id="tool-crosshair" aria-labelledby="tab-crosshair">
-            <div class="tool-grid">
-              <form class="tool-controls" id="xh-form" autocomplete="off">
-                <div class="field">
-                  <label for="xh-preset">Start from a preset</label>
-                  <select id="xh-preset">
-                    <option value="classic">Classic green</option>
-                    <option value="cyan">Small cyan</option>
-                    <option value="dot">White dot</option>
-                    <option value="tshape">T-shape</option>
-                    <option value="big">Big yellow</option>
-                    <option value="custom" hidden>Custom</option>
-                  </select>
-                </div>
-
-                <fieldset>
-                  <legend>Shape</legend>
-                  <div class="range">
-                    <label for="xh-size">Length</label>
-                    <input type="range" min="0" max="10" step="0.5" value="2" aria-label="Length">
-                    <input type="number" id="xh-size" min="0" max="10" step="0.5" value="2">
-                  </div>
-                  <div class="range">
-                    <label for="xh-thickness">Thickness</label>
-                    <input type="range" min="0" max="6" step="0.1" value="0.5" aria-label="Thickness">
-                    <input type="number" id="xh-thickness" min="0" max="6" step="0.1" value="0.5">
-                  </div>
-                  <div class="range">
-                    <label for="xh-gap">Gap</label>
-                    <input type="range" min="-10" max="10" step="0.5" value="-3" aria-label="Gap">
-                    <input type="number" id="xh-gap" min="-10" max="10" step="0.5" value="-3">
-                  </div>
-                  <div class="switches">
-                    <label class="switch"><input type="checkbox" id="xh-dot"><span class="switch-ui"></span>Center dot</label>
-                    <label class="switch"><input type="checkbox" id="xh-t"><span class="switch-ui"></span>T-style</label>
-                    <label class="switch"><input type="checkbox" id="xh-outline" checked><span class="switch-ui"></span>Outline</label>
-                    <label class="switch"><input type="checkbox" id="xh-recoil"><span class="switch-ui"></span>Follow recoil</label>
-                  </div>
-                  <div class="range" id="xh-outline-row">
-                    <label for="xh-outline-thickness">Outline</label>
-                    <input type="range" min="0" max="3" step="0.5" value="1" aria-label="Outline thickness">
-                    <input type="number" id="xh-outline-thickness" min="0" max="3" step="0.5" value="1">
-                  </div>
-                  <div class="field">
-                    <label for="xh-style">Style</label>
-                    <select id="xh-style">
-                      <option value="4">Classic static (4)</option>
-                      <option value="2">Classic (2)</option>
-                      <option value="3">Classic dynamic (3)</option>
-                    </select>
-                  </div>
-                </fieldset>
-
-                <fieldset>
-                  <legend>Color</legend>
-                  <div class="swatches" role="radiogroup" aria-label="Crosshair color">
-                    <label class="swatch" title="Red"><input type="radio" name="xh-color" value="0"><span style="--sw: rgb(250 50 50)"></span><em>Red</em></label>
-                    <label class="swatch" title="Green"><input type="radio" name="xh-color" value="1" checked><span style="--sw: rgb(50 250 50)"></span><em>Green</em></label>
-                    <label class="swatch" title="Yellow"><input type="radio" name="xh-color" value="2"><span style="--sw: rgb(250 250 50)"></span><em>Yellow</em></label>
-                    <label class="swatch" title="Blue"><input type="radio" name="xh-color" value="3"><span style="--sw: rgb(50 50 250)"></span><em>Blue</em></label>
-                    <label class="swatch" title="Cyan"><input type="radio" name="xh-color" value="4"><span style="--sw: rgb(50 250 250)"></span><em>Cyan</em></label>
-                    <label class="swatch swatch-custom" title="Custom"><input type="radio" name="xh-color" value="5"><span></span><em>Custom</em></label>
-                  </div>
-                  <div class="field field-inline" id="xh-custom-row">
-                    <label for="xh-custom">Custom color</label>
-                    <input type="color" id="xh-custom" value="#00ffff">
-                  </div>
-                  <div class="range">
-                    <label for="xh-alpha">Opacity</label>
-                    <input type="range" min="0" max="255" step="1" value="255" aria-label="Opacity">
-                    <input type="number" id="xh-alpha" min="0" max="255" step="1" value="255">
-                  </div>
-                </fieldset>
-              </form>
-
-              <div class="tool-output">
-                <div class="xh-preview">
-                  <canvas id="xh-canvas" role="img" aria-label="Crosshair preview"></canvas>
-                  <div class="xh-bar">
-                    <div class="segmented" role="group" aria-label="Preview background">
-                      <button type="button" class="is-active" data-scene="desert">Desert</button>
-                      <button type="button" data-scene="dark">Dark</button>
-                      <button type="button" data-scene="bright">Bright</button>
-                      <button type="button" data-scene="foliage">Foliage</button>
-                    </div>
-                    <label class="zoom">
-                      <span>Zoom</span>
-                      <select id="xh-zoom">
-                        <option value="1">1× (true size at 1080p)</option>
-                        <option value="2">2×</option>
-                        <option value="3" selected>3×</option>
-                        <option value="4">4×</option>
-                      </select>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="code-block">
-                  <div class="code-head">
-                    <span>Console commands</span>
-                    <button class="btn btn-code" type="button" id="xh-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
-                  </div>
-                  <pre><code id="xh-code"></code></pre>
-                </div>
-
-                <details class="import">
-                  <summary>Import from console commands</summary>
-                  <div class="import-body">
-                    <label class="sr-only" for="xh-import">Paste crosshair commands</label>
-                    <textarea id="xh-import" rows="3" placeholder="cl_crosshairsize 2; cl_crosshairgap -3; cl_crosshaircolor 1; ..."></textarea>
-                    <button class="btn btn-primary btn-sm" type="button" id="xh-import-btn">Apply</button>
-                  </div>
-                </details>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sensitivity converter -->
-          <div class="tool-panel" role="tabpanel" id="tool-sens" aria-labelledby="tab-sens" hidden>
-            <div class="tool-grid">
-              <form class="tool-controls" id="sens-form" autocomplete="off">
-                <fieldset>
-                  <legend>Convert from</legend>
-                  <div class="field">
-                    <label for="sens-from-game">Game</label>
-                    <select id="sens-from-game"></select>
-                  </div>
-                  <div class="field-pair">
-                    <div class="field">
-                      <label for="sens-from">Sensitivity</label>
-                      <input type="number" id="sens-from" min="0" step="0.001" value="0.4" inputmode="decimal">
-                    </div>
-                    <div class="field">
-                      <label for="sens-dpi">Mouse DPI</label>
-                      <input type="number" id="sens-dpi" min="1" step="50" value="800" inputmode="numeric">
-                    </div>
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Convert to</legend>
-                  <div class="field">
-                    <label for="sens-to-game">Game</label>
-                    <select id="sens-to-game"></select>
-                  </div>
-                  <div class="field">
-                    <label for="sens-to-dpi">New DPI <span class="hint">(if you're also changing DPI)</span></label>
-                    <input type="number" id="sens-to-dpi" min="1" step="50" value="800" inputmode="numeric">
-                  </div>
-                </fieldset>
-              </form>
-
-              <div class="tool-output">
-                <div class="result-card">
-                  <span class="result-label" id="sens-result-label">Your Counter-Strike 2 sensitivity</span>
-                  <span class="result-value" id="sens-result">—</span>
-                  <div class="result-actions">
-                    <button class="btn btn-code" type="button" id="sens-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
-                    <button class="btn btn-primary btn-sm" type="button" id="sens-to-autoexec">Use in autoexec <svg class="icon"><use href="#i-arrow"/></svg></button>
-                  </div>
-                </div>
-
-                <div class="stats">
-                  <div class="stat"><span class="stat-value" id="sens-edpi">—</span><span class="stat-label">CS2 eDPI</span></div>
-                  <div class="stat"><span class="stat-value" id="sens-cm">—</span><span class="stat-label">cm / 360°</span></div>
-                  <div class="stat"><span class="stat-value" id="sens-in">—</span><span class="stat-label">inches / 360°</span></div>
-                </div>
-
-                <div class="meter">
-                  <div class="meter-head"><span>Where you sit</span><span class="meter-scale">0 – 2,000 eDPI</span></div>
-                  <div class="meter-track">
-                    <div class="meter-band" style="left:30%; width:30%"></div>
-                    <div class="meter-pin" id="sens-pin"></div>
-                  </div>
-                  <div class="meter-labels"><span>Low</span><span>Typical CS range</span><span>High</span></div>
-                  <p class="meter-note" id="sens-note"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Autoexec generator -->
-          <div class="tool-panel" role="tabpanel" id="tool-autoexec" aria-labelledby="tab-autoexec" hidden>
-            <div class="tool-grid">
-              <form class="tool-controls" id="ae-form" autocomplete="off">
-                <fieldset>
-                  <legend>Mouse &amp; performance</legend>
-                  <div class="field-pair">
-                    <div class="field">
-                      <label for="ae-sens">sensitivity</label>
-                      <input type="number" id="ae-sens" min="0.01" step="0.01" value="1.25" inputmode="decimal">
-                    </div>
-                    <div class="field">
-                      <label for="ae-zoom">Scoped ratio</label>
-                      <input type="number" id="ae-zoom" min="0.1" max="3" step="0.05" value="1" inputmode="decimal">
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label for="ae-fps">Max FPS <span class="hint">(0 = unlimited)</span></label>
-                    <input type="number" id="ae-fps" min="0" step="1" value="0" inputmode="numeric">
-                  </div>
-                  <div class="switches">
-                    <label class="switch"><input type="checkbox" id="ae-xh" checked><span class="switch-ui"></span>Include my crosshair</label>
-                  </div>
-                </fieldset>
-
-                <fieldset>
-                  <legend>Viewmodel</legend>
-                  <div class="field">
-                    <label for="ae-vm-preset">Preset</label>
-                    <select id="ae-vm-preset">
-                      <option value="classic">Classic (wide, low)</option>
-                      <option value="default">CS2 default</option>
-                      <option value="custom" hidden>Custom</option>
-                    </select>
-                  </div>
-                  <div class="range">
-                    <label for="ae-vm-fov">FOV</label>
-                    <input type="range" min="54" max="68" step="1" value="68" aria-label="Viewmodel FOV">
-                    <input type="number" id="ae-vm-fov" min="54" max="68" step="1" value="68">
-                  </div>
-                  <div class="range">
-                    <label for="ae-vm-x">Offset X</label>
-                    <input type="range" min="-2.5" max="2.5" step="0.5" value="2.5" aria-label="Viewmodel offset X">
-                    <input type="number" id="ae-vm-x" min="-2.5" max="2.5" step="0.5" value="2.5">
-                  </div>
-                  <div class="range">
-                    <label for="ae-vm-y">Offset Y</label>
-                    <input type="range" min="-2" max="2" step="0.5" value="0" aria-label="Viewmodel offset Y">
-                    <input type="number" id="ae-vm-y" min="-2" max="2" step="0.5" value="0">
-                  </div>
-                  <div class="range">
-                    <label for="ae-vm-z">Offset Z</label>
-                    <input type="range" min="-2" max="2" step="0.5" value="-1.5" aria-label="Viewmodel offset Z">
-                    <input type="number" id="ae-vm-z" min="-2" max="2" step="0.5" value="-1.5">
-                  </div>
-                </fieldset>
-
-                <fieldset>
-                  <legend>HUD &amp; radar</legend>
-                  <div class="range">
-                    <label for="ae-hud-scale">HUD scale</label>
-                    <input type="range" min="0.5" max="0.95" step="0.05" value="0.85" aria-label="HUD scale">
-                    <input type="number" id="ae-hud-scale" min="0.5" max="0.95" step="0.05" value="0.85">
-                  </div>
-                  <div class="field">
-                    <label for="ae-hud-color">HUD color</label>
-                    <select id="ae-hud-color">
-                      <option value="0">Default</option>
-                      <option value="1">White</option>
-                      <option value="2">Light blue</option>
-                      <option value="3">Dark blue</option>
-                      <option value="4">Purple</option>
-                      <option value="5">Red</option>
-                      <option value="6">Orange</option>
-                      <option value="7">Yellow</option>
-                      <option value="8">Green</option>
-                      <option value="9">Aqua</option>
-                      <option value="10">Pink</option>
-                    </select>
-                  </div>
-                  <div class="range">
-                    <label for="ae-radar-scale">Radar zoom</label>
-                    <input type="range" min="0.25" max="1" step="0.05" value="0.4" aria-label="Radar zoom">
-                    <input type="number" id="ae-radar-scale" min="0.25" max="1" step="0.05" value="0.4">
-                  </div>
-                  <div class="range">
-                    <label for="ae-radar-hud">Radar size</label>
-                    <input type="range" min="0.8" max="1.3" step="0.05" value="1.15" aria-label="Radar size">
-                    <input type="number" id="ae-radar-hud" min="0.8" max="1.3" step="0.05" value="1.15">
-                  </div>
-                  <div class="switches">
-                    <label class="switch"><input type="checkbox" id="ae-radar-rotate" checked><span class="switch-ui"></span>Rotate radar</label>
-                    <label class="switch"><input type="checkbox" id="ae-radar-center"><span class="switch-ui"></span>Keep player centered</label>
-                  </div>
-                </fieldset>
-
-                <fieldset>
-                  <legend>Audio, binds &amp; misc</legend>
-                  <div class="range">
-                    <label for="ae-volume">Volume</label>
-                    <input type="range" min="0" max="1" step="0.05" value="0.5" aria-label="Volume">
-                    <input type="number" id="ae-volume" min="0" max="1" step="0.05" value="0.5">
-                  </div>
-                  <div class="switches">
-                    <label class="switch"><input type="checkbox" id="ae-mute-focus" checked><span class="switch-ui"></span>Keep audio when tabbed out</label>
-                    <label class="switch"><input type="checkbox" id="ae-jump-wheel" checked><span class="switch-ui"></span>Jump on scroll down</label>
-                    <label class="switch"><input type="checkbox" id="ae-console" checked><span class="switch-ui"></span>Enable dev console</label>
-                  </div>
-                </fieldset>
-              </form>
-
-              <div class="tool-output">
-                <div class="code-block code-tall">
-                  <div class="code-head">
-                    <span>autoexec.cfg</span>
-                    <span class="code-actions">
-                      <button class="btn btn-code" type="button" id="ae-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
-                      <button class="btn btn-code btn-code-accent" type="button" id="ae-download"><svg class="icon"><use href="#i-download"/></svg>Download</button>
-                    </span>
-                  </div>
-                  <pre><code id="ae-code"></code></pre>
-                </div>
-                <div class="howto">
-                  <h3>How to install</h3>
-                  <ol>
-                    <li>Save the file to <code>Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\</code></li>
-                    <li>In Steam, right-click CS2 → <strong>Properties</strong> → <strong>Launch options</strong> and add <code>+exec autoexec</code></li>
-                    <li>Launch the game. Your settings load every time.</li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Practice config -->
-          <div class="tool-panel" role="tabpanel" id="tool-practice" aria-labelledby="tab-practice" hidden>
-            <div class="tool-grid">
-              <form class="tool-controls" id="pr-form" autocomplete="off">
-                <fieldset>
-                  <legend>Server rules</legend>
-                  <div class="switches switches-stack">
-                    <label class="switch"><input type="checkbox" id="pr-cheats" checked disabled><span class="switch-ui"></span>Enable cheats <span class="hint">(required)</span></label>
-                    <label class="switch"><input type="checkbox" id="pr-round" checked><span class="switch-ui"></span>Endless round, no freeze time</label>
-                    <label class="switch"><input type="checkbox" id="pr-money" checked><span class="switch-ui"></span>Max money</label>
-                    <label class="switch"><input type="checkbox" id="pr-buy" checked><span class="switch-ui"></span>Buy anywhere, anytime</label>
-                    <label class="switch"><input type="checkbox" id="pr-bots" checked><span class="switch-ui"></span>Kick bots</label>
-                    <label class="switch"><input type="checkbox" id="pr-teams" checked><span class="switch-ui"></span>No team limits</label>
-                    <label class="switch"><input type="checkbox" id="pr-respawn" checked><span class="switch-ui"></span>Respawn on death</label>
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Utility practice</legend>
-                  <div class="switches switches-stack">
-                    <label class="switch"><input type="checkbox" id="pr-ammo" checked><span class="switch-ui"></span>Infinite ammo</label>
-                    <label class="switch"><input type="checkbox" id="pr-nades" checked><span class="switch-ui"></span>Carry all grenades</label>
-                    <label class="switch"><input type="checkbox" id="pr-traj" checked><span class="switch-ui"></span>Grenade trajectory preview</label>
-                    <label class="switch"><input type="checkbox" id="pr-impacts" checked><span class="switch-ui"></span>Show bullet impacts</label>
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Binds</legend>
-                  <div class="field-pair">
-                    <div class="field">
-                      <label for="pr-noclip">Noclip key</label>
-                      <input type="text" id="pr-noclip" value="n" maxlength="12" spellcheck="false">
-                    </div>
-                    <div class="field">
-                      <label for="pr-rethrow">Rethrow last nade</label>
-                      <input type="text" id="pr-rethrow" value="x" maxlength="12" spellcheck="false">
-                    </div>
-                  </div>
-                  <p class="hint">Leave blank to skip a bind. Use CS2 key names, like <code>n</code>, <code>mouse4</code> or <code>kp_end</code>.</p>
-                </fieldset>
-              </form>
-
-              <div class="tool-output">
-                <div class="code-block code-tall">
-                  <div class="code-head">
-                    <span>practice.cfg</span>
-                    <span class="code-actions">
-                      <button class="btn btn-code" type="button" id="pr-copy"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
-                      <button class="btn btn-code btn-code-accent" type="button" id="pr-download"><svg class="icon"><use href="#i-download"/></svg>Download</button>
-                    </span>
-                  </div>
-                  <pre><code id="pr-code"></code></pre>
-                </div>
-                <div class="howto">
-                  <h3>How to use</h3>
-                  <ol>
-                    <li>Save <code>practice.cfg</code> to the same <code>cfg</code> folder as your autoexec.</li>
-                    <li>Open the console and start a local server, e.g. <code>map de_mirage</code></li>
-                    <li>Once you've loaded in, run <code>exec practice</code></li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Install -->
-    <section class="section" id="install" hidden>
+    <!-- How buying works + FAQ -->
+    <section class="section" id="faq">
       <div class="container">
         <div class="section-head center reveal">
-          <span class="kicker">Get started</span>
-          <h2>Up and running in <span class="grad-text">under a minute</span></h2>
+          <span class="kicker">How it works</span>
+          <h2>From payment to playing in minutes</h2>
         </div>
+
         <ol class="steps">
-          <li class="card step spot reveal">
+          <li class="card step reveal">
             <span class="step-num">01</span>
-            <h3>Download</h3>
-            <p>Grab the latest version from the download button. It's a single small file.</p>
+            <h3>Pick a plan</h3>
+            <p>Create an account on the panel and choose Week, Month or Lifetime.</p>
           </li>
-          <li class="card step spot reveal">
+          <li class="card step reveal">
             <span class="step-num">02</span>
-            <h3>Run it</h3>
-            <p>Open FragLab. There's no installer wizard and nothing else to set up.</p>
+            <h3>Pay with crypto</h3>
+            <p>Checkout runs on NOWPayments. Pick the coin you want to pay with on their page.</p>
           </li>
-          <li class="card step spot reveal">
+          <li class="card step reveal">
             <span class="step-num">03</span>
-            <h3>Pick your settings</h3>
-            <p>Choose a profile, set your keys and launch CS2. Your settings are saved for next time.</p>
+            <h3>Download</h3>
+            <p>Once the payment confirms, your plan and key appear in the panel and the download unlocks.</p>
           </li>
         </ol>
-      </div>
-    </section>
 
-    <!-- FAQ -->
-    <section class="section section-alt" id="faq" hidden>
-      <div class="container faq-wrap">
-        <div class="section-head reveal">
-          <span class="kicker">FAQ</span>
-          <h2>Got questions?</h2>
-          <p>Still stuck? Ask in the Discord and someone will help you out.</p>
-          <a class="btn btn-ghost" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Join the Discord</a>
-        </div>
-        <div class="faq-list reveal">
-          <details class="faq">
-            <summary>Where can I use the bhop helper?</summary>
-            <p>Use it on community servers that allow it, like bhop, surf and KZ servers, or on your own practice server. Valve doesn't allow movement automation on official matchmaking servers, so keep it switched off there.</p>
-          </details>
-          <details class="faq">
-            <summary>Which systems does FragLab run on?</summary>
-            <p>Windows 10 and Windows 11, 64-bit.</p>
-          </details>
-          <details class="faq">
-            <summary>Do the web tools need the app?</summary>
-            <p>No. The crosshair builder, sensitivity converter and config generators on this page run entirely in your browser. Nothing is uploaded anywhere.</p>
-          </details>
-          <details class="faq">
-            <summary>Where do I put autoexec.cfg and practice.cfg?</summary>
-            <p>Save them to <code>Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg\</code>. Add <code>+exec autoexec</code> to CS2's launch options in Steam. For practice, start a local map with <code>map de_mirage</code> and run <code>exec practice</code>.</p>
-          </details>
-          <details class="faq">
-            <summary>How do I get updates?</summary>
-            <p>FragLab can check for updates on launch (you can turn this off in Settings). New releases are also announced in the Discord.</p>
-          </details>
-          <details class="faq">
-            <summary>Is FragLab affiliated with Valve?</summary>
-            <p>No. FragLab is an independent project and isn't affiliated with or endorsed by Valve Corporation.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- Download -->
-    <section class="section download" id="download" hidden>
-      <div class="container">
-        <div class="download-card reveal">
-          <div class="download-glow" aria-hidden="true"></div>
-          <svg class="download-logo" aria-hidden="true"><use href="#logo"/></svg>
-          <h2>Ready to <span class="grad-text">hop in?</span></h2>
-          <p>Download FragLab and set up your CS2 in a couple of clicks.</p>
-          <div class="download-ctas">
-            <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download v1.0</a>
-            <a class="btn btn-ghost btn-lg" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Join Discord</a>
+        <div class="faq-block">
+          <h3 class="faq-title reveal">Questions</h3>
+          <div class="faq-list reveal">
+            <details class="faq">
+              <summary>How long does activation take?</summary>
+              <p>Your plan turns on automatically as soon as the blockchain confirms your payment. That's usually a few minutes, depending on the coin. The panel updates by itself, so you can leave it open.</p>
+            </details>
+            <details class="faq">
+              <summary>Which coins can I pay with?</summary>
+              <p>Payments go through NOWPayments, which accepts Bitcoin, Ethereum, Litecoin, USDT and many more. You choose the coin on the payment page.</p>
+            </details>
+            <details class="faq">
+              <summary>Where do I find my key and the download?</summary>
+              <p>Both are in the <a href="panel.html">panel</a>. Your key is listed under Your keys, and the Download button unlocks while your plan is active.</p>
+            </details>
+            <details class="faq">
+              <summary>Someone gave me a key. How do I use it?</summary>
+              <p>Log in to the panel, paste it into Redeem a key and press Redeem. The plan is added to your account straight away.</p>
+            </details>
+            <details class="faq">
+              <summary>What happens if I buy again before my plan runs out?</summary>
+              <p>The new time is added on top of what you have left, so you never lose days. Lifetime never expires.</p>
+            </details>
+            <details class="faq">
+              <summary>I sent less than the full amount. What now?</summary>
+              <p>Partial payments can't switch a plan on automatically. They're checked by hand instead, so send the exact amount shown on the payment page to avoid delays.</p>
+            </details>
           </div>
-          <p class="download-note">Windows 10 / 11 · 64-bit</p>
         </div>
       </div>
     </section>
+
+    <!-- Final call to action -->
+    <section class="section cta-band">
+      <div class="container cta-inner reveal">
+        <h2>Ready when you are</h2>
+        <p>Plans from $6.99. Activation is automatic.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="#pricing">See plans</a>
+          <a class="btn btn-ghost btn-lg" href="panel.html">Open the panel</a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer" hidden>
+  <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="#top" aria-label="FragLab home">
-          <svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg>
-          <span class="brand-name">FragLab</span>
+        <a class="brand" href="#top" aria-label="Revenant home">
+          <span class="brand-dot"></span>
+          <span class="brand-name">REVENANT</span>
         </a>
-        <p>A lightweight utility for Counter-Strike 2 players.</p>
+        <p>Pay with crypto, get activated automatically, download from your panel.</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <a href="#features">Features</a>
-        <a href="#tools">Web tools</a>
-        <a href="#install">Install</a>
+        <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="#" data-link="discord">Discord</a>
+        <a href="panel.html">Panel</a>
       </nav>
     </div>
     <div class="container footer-bottom">
-      <p>© <span id="year">2026</span> FragLab</p>
-      <p>Not affiliated with or endorsed by Valve Corporation. Counter-Strike and CS2 are trademarks of Valve Corporation.</p>
+      <p>© <span id="year">2026</span> REVENANT</p>
+      <p>Not affiliated with or endorsed by Valve Corporation. Counter-Strike 2 is a trademark of Valve Corporation.</p>
     </div>
   </footer>
 
