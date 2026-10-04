@@ -354,7 +354,7 @@ const PANEL = {
     confirming: ['Payment found', 'Waiting for blockchain confirmations. This usually takes a few minutes.'],
     confirmed: ['Payment confirmed', 'Almost done, activating your plan...'],
     sending: ['Payment confirmed', 'Almost done, activating your plan...'],
-    partially_paid: ['Payment too small', 'Less than the full amount arrived. Send the rest from the same payment page.'],
+    partially_paid: ['Payment too small', "Less than the full amount arrived, so the plan couldn't turn on by itself. Any extra you send is checked by hand before activation."],
     review: ['Payment under review', "Your payment needs a quick manual check. Your plan will be activated once it's sorted."],
     expired: ['Payment expired', 'No payment arrived in time. You can start a new checkout below.'],
     failed: ['Payment failed', 'The payment did not go through. You can start a new checkout below.'],
@@ -480,7 +480,7 @@ const PANEL = {
     busy(btn, false);
     if (error) {
       const m = error.message || '';
-      return setMsg(redeemMsg, /invalid or already used|log in/i.test(m) ? m : "Couldn't redeem that key. Try again.", 'error');
+      return setMsg(redeemMsg, error.code === 'P0001' && m ? m : "Couldn't redeem that key. Try again.", 'error');
     }
     redeemForm.reset();
     setMsg(redeemMsg, `Key redeemed. ${data?.plan || 'Your'} plan added.`, 'ok');

@@ -63,28 +63,15 @@ Deno.serve(async (req) => {
     plan = String((await req.json())?.plan ?? "");
   } catch { /* empty body */ }
 
-  const { data: p } = await admin
-    .from("plans")
-    .select("id, name, price_usd, days")
-    .eq("id", plan)
-    .eq("active", true)
-    .maybeSingle();
-  if (!p) return json({ error: "That plan doesn't exist." }, 400);
-
-  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-  const { count } = await admin
-    .from("orders")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", user.id)
-    .gte("created_at", since);
-  if ((count ?? 0) >= 10) return json({ error: "Too many checkouts in the last hour. Try again later." }, 429);
-
-  const { data: order, error: orderError } = await admin
-    .from("orders")
-    .insert({ user_id: user.id, plan_id: p.id, price_usd: p.price_usd, days: p.days })
-    .select("id")
-    .single();
-  if (orderError || !order) return json({ error: "Couldn't start the checkout. Try again." }, 500);
+  // Prices, the hourly limit and the lifetime check all live in the database.
+  const { data: order, error: orderError } = await admin.rpc("create_order", { p_user: user.id, p_plan: plan });
+  if (orderError || !order?.id) {
+    const reason = orderError?.message ?? "";
+    if (reason.includes("unknown_plan")) return json({ error: "That plan doesn't exist." }, 400);
+    if (reason.includes("lifetime_owned")) return json({ error: "You already have lifetime access." }, 409);
+    if (reason.includes("rate_limited")) return json({ error: "Too many checkouts in the last hour. Try again later." }, 429);
+    return json({ error: "Couldn't start the checkout. Try again." }, 500);
+  }
 
   let invoice: { id?: unknown; invoice_url?: unknown; code?: unknown; message?: unknown } | null = null;
   let status = 0;
@@ -93,10 +80,10 @@ Deno.serve(async (req) => {
       method: "POST",
       headers: { "x-api-key": apiKey, "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
-        price_amount: Number(p.price_usd),
+        price_amount: Number(order.price_usd),
         price_currency: "usd",
         order_id: order.id,
-        order_description: `REVENANT ${p.name}`,
+        order_description: `REVENANT ${order.name}`,
         ipn_callback_url: `${SUPABASE_URL}/functions/v1/nowpayments-ipn`,
         success_url: `${PANEL_URL}?paid=${order.id}`,
         cancel_url: `${PANEL_URL}?cancelled=1`,

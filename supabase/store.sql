@@ -179,9 +179,11 @@ security definer
 set search_path = ''
 as $$
 declare
-  o      public.orders;
-  v_key  text;
-  v_id   uuid;
+  o       public.orders;
+  v_key   text;
+  v_id    uuid;
+  v_con   text;
+  v_try   int := 0;
 begin
   select * into o from public.orders where id = p_order for update;
   if not found then
@@ -193,6 +195,16 @@ begin
     return v_key;
   end if;
 
+  -- An order only ever gets one key, even if its status was changed by hand.
+  select id, key into v_id, v_key from public.license_keys where order_id = o.id;
+  if found then
+    update public.orders
+       set status = 'paid', paid_at = coalesce(paid_at, now()), updated_at = now(),
+           payment_id = coalesce(p_payment_id, payment_id), license_key_id = v_id
+     where id = o.id;
+    return v_key;
+  end if;
+
   loop
     begin
       v_key := public.new_license_key();
@@ -201,7 +213,11 @@ begin
       returning id into v_id;
       exit;
     exception when unique_violation then
-      -- astronomically unlikely key collision: draw another
+      get stacked diagnostics v_con = constraint_name;
+      v_try := v_try + 1;
+      if v_con <> 'license_keys_key_key' or v_try >= 10 then
+        raise;
+      end if;
     end;
   end loop;
 
@@ -213,6 +229,44 @@ begin
    where id = o.id;
 
   return v_key;
+end;
+$$;
+
+-- Called by the checkout function. One statement per user at a time (advisory
+-- lock), so the hourly limit can't be dodged with parallel requests.
+create or replace function public.create_order(p_user uuid, p_plan text)
+returns json
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  p  public.plans;
+  o  public.orders;
+  n  integer;
+begin
+  select * into p from public.plans where id = p_plan and active;
+  if not found then
+    raise exception 'unknown_plan' using errcode = 'P0001';
+  end if;
+
+  perform pg_advisory_xact_lock(hashtextextended('rvnt-order:' || p_user::text, 0));
+
+  if exists (select 1 from public.subscriptions where user_id = p_user and expires_at is null) then
+    raise exception 'lifetime_owned' using errcode = 'P0001';
+  end if;
+
+  select count(*) into n from public.orders
+   where user_id = p_user and created_at > now() - interval '1 hour';
+  if n >= 10 then
+    raise exception 'rate_limited' using errcode = 'P0001';
+  end if;
+
+  insert into public.orders (user_id, plan_id, price_usd, days)
+  values (p_user, p.id, p.price_usd, p.days)
+  returning * into o;
+
+  return json_build_object('id', o.id, 'price_usd', o.price_usd, 'name', p.name);
 end;
 $$;
 
@@ -235,10 +289,16 @@ begin
     raise exception 'Log in first.' using errcode = 'P0001';
   end if;
 
+  if exists (select 1 from public.subscriptions where user_id = v_uid and expires_at is null) then
+    raise exception 'You already have lifetime access, so the key was not used.' using errcode = 'P0001';
+  end if;
+
+  -- redeemed_at (not redeemed_by) marks a key as used: deleting an account
+  -- nulls redeemed_by but must not make its keys redeemable again.
   update public.license_keys
      set redeemed_by = v_uid, redeemed_at = now()
    where key = upper(btrim(coalesce(p_key, '')))
-     and redeemed_by is null
+     and redeemed_at is null
   returning plan_id, days into v_plan, v_days;
 
   if v_plan is null then
@@ -276,6 +336,7 @@ begin
         insert into public.license_keys (key, plan_id, days) values (v_key, p_plan, v_days);
         exit;
       exception when unique_violation then
+        -- key collision: draw another
       end;
     end loop;
     key := v_key;
@@ -289,6 +350,8 @@ revoke execute on function public.new_license_key()                 from public,
 revoke execute on function public.apply_plan(uuid, text, integer)   from public, anon, authenticated;
 revoke execute on function public.fulfill_order(uuid, text)         from public, anon, authenticated;
 revoke execute on function public.create_keys(text, integer)        from public, anon, authenticated;
+revoke execute on function public.create_order(uuid, text)          from public, anon, authenticated;
+grant  execute on function public.create_order(uuid, text)          to service_role;
 revoke execute on function public.redeem_key(text)                  from public, anon;
 grant  execute on function public.redeem_key(text)                  to authenticated;
 grant  execute on function public.fulfill_order(uuid, text)         to service_role;

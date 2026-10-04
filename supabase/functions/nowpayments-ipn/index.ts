@@ -98,19 +98,43 @@ Deno.serve(async (req) => {
 
   const orderId = String(body.order_id ?? "");
   const paymentId = String(body.payment_id ?? "");
-  const order = UUID.test(orderId)
-    ? (await admin.from("orders").select("id, status, price_usd, invoice_id").eq("id", orderId).maybeSingle()).data
-    : null;
+  const claimed = String(body.payment_status ?? "");
+
+  let order: { id: string; status: string; price_usd: number | string; invoice_id: string | null; payment_id: string | null; note: string | null } | null = null;
+  if (UUID.test(orderId)) {
+    const { data, error } = await admin
+      .from("orders")
+      .select("id, status, price_usd, invoice_id, payment_id, note")
+      .eq("id", orderId)
+      .maybeSingle();
+    // A database hiccup must not look like "unknown order": answer non-2xx so NOWPayments retries.
+    if (error) return reply(503, "database unavailable");
+    order = data;
+  }
 
   await admin.from("payment_events").insert({
     order_id: order?.id ?? null,
     payment_id: paymentId || null,
-    status: String(body.payment_status ?? ""),
+    status: claimed,
     payload: body,
   });
 
   if (!order) return reply(200, "unknown order");
-  if (order.status === "paid") return reply(200, "already paid");
+
+  const addNote = async (text: string) => {
+    if ((order!.note ?? "").includes(text)) return;
+    await admin
+      .from("orders")
+      .update({ note: `${order!.note ? order!.note + " | " : ""}${text}`.slice(0, 1000), updated_at: new Date().toISOString() })
+      .eq("id", order!.id);
+  };
+
+  if (order.status === "paid") {
+    if (paymentId && paymentId !== order.payment_id && claimed === "finished") {
+      await addNote(`extra payment ${paymentId} finished after the order was already paid, refund or credit it`);
+    }
+    return reply(200, "already paid");
+  }
   if (!/^\d+$/.test(paymentId)) return reply(200, "no payment id");
 
   // Don't trust the notification's contents: ask NOWPayments directly.
@@ -127,21 +151,26 @@ Deno.serve(async (req) => {
   const markReview = async (note: string) => {
     await admin
       .from("orders")
-      .update({ status: "review", payment_id: paymentId, note, updated_at: new Date().toISOString() })
-      .eq("id", order.id)
+      .update({ status: "review", payment_id: paymentId, note: `${order!.note ? order!.note + " | " : ""}${note}`.slice(0, 1000), updated_at: new Date().toISOString() })
+      .eq("id", order!.id)
       .neq("status", "paid");
     return reply(200, "needs review");
   };
 
-  if (String(pay.order_id ?? "") !== order.id) return markReview("payment belongs to a different order");
-  if (order.invoice_id && pay.invoice_id != null && String(pay.invoice_id) !== order.invoice_id) {
-    return markReview("payment came from a different invoice");
+  const present = (v: unknown) => v !== null && v !== undefined && v !== "" && v !== 0 && v !== "0";
+  const parent = present(pay.parent_payment_id) ? pay.parent_payment_id : body.parent_payment_id;
+  const origin = String(pay.origin_type ?? body.origin_type ?? "");
+  const amount = Number(pay.price_amount);
+
+  if (String(pay.order_id ?? "") !== order.id) return markReview(`payment ${paymentId} belongs to a different order`);
+  if (order.invoice_id && present(pay.invoice_id) && String(pay.invoice_id) !== order.invoice_id) {
+    return markReview(`payment ${paymentId} came from a different invoice`);
   }
-  if (pay.parent_payment_id != null && pay.parent_payment_id !== "" && pay.parent_payment_id !== 0) {
-    return markReview(`repeat deposit linked to payment ${String(pay.parent_payment_id)}`);
+  if (present(parent) || /repeat|wrong/i.test(origin)) {
+    return markReview(`payment ${paymentId} is a repeat deposit (parent ${String(parent ?? "?")}, origin ${origin || "?"})`);
   }
-  if (String(pay.price_currency ?? "").toLowerCase() !== "usd" || Number(pay.price_amount) + 0.005 < Number(order.price_usd)) {
-    return markReview(`price mismatch: ${String(pay.price_amount)} ${String(pay.price_currency)}`);
+  if (String(pay.price_currency ?? "").toLowerCase() !== "usd" || !Number.isFinite(amount) || amount + 0.005 < Number(order.price_usd)) {
+    return markReview(`payment ${paymentId} price mismatch: ${String(pay.price_amount)} ${String(pay.price_currency)}`);
   }
 
   if (status === "finished") {
@@ -150,12 +179,23 @@ Deno.serve(async (req) => {
     return reply(200, "fulfilled");
   }
 
-  if (TRACKED.has(status)) {
+  // The notification says finished but NOWPayments' own record lags behind: ask for a retry.
+  if (claimed === "finished" && ["waiting", "confirming", "confirmed", "sending"].includes(status)) {
+    return reply(503, "not final at provider yet");
+  }
+
+  // Keep the order's status moving forward: a stale or sibling payment (the customer
+  // switched coins) must not drag a confirming order back to "expired".
+  const RANK: Record<string, number> = {
+    pending: 0, failed: 1, expired: 1, refunded: 1, waiting: 2, partially_paid: 3, confirming: 4, confirmed: 5, sending: 6,
+  };
+  const samePayment = !order.payment_id || order.payment_id === paymentId;
+  if (TRACKED.has(status) && order.status !== "review" && (samePayment || (RANK[status] ?? 0) > (RANK[order.status] ?? 0))) {
     await admin
       .from("orders")
       .update({ status, payment_id: paymentId, updated_at: new Date().toISOString() })
       .eq("id", order.id)
-      .neq("status", "paid");
+      .not("status", "in", "(paid,review)");
   }
   return reply(200, "recorded");
 });
