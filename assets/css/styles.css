@@ -199,7 +199,7 @@ code { font-family: var(--mono); font-size: 0.875em; }
    ========================================================================== */
 .site-header {
   position: sticky;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   z-index: 50;
   background: rgba(7, 7, 12, 0.55);
   backdrop-filter: blur(16px) saturate(140%);
@@ -1297,9 +1297,11 @@ input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); curso
 .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
 /* Reveal on scroll */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.is-visible { opacity: 1; transform: none; }
-.no-js .reveal, .no-observer .reveal { opacity: 1; transform: none; }
+/* Content is always visible; scrolling only adds a small slide-up, so nothing
+   is ever blank if scripts fail or the page is captured without scrolling. */
+.reveal { transform: translateY(16px); transition: transform 0.7s ease; }
+.reveal.is-visible { transform: none; }
+.no-js .reveal, .no-observer .reveal { transform: none; }
 .card.reveal.is-visible:hover { transform: translateY(-3px); }
 
 /* ==========================================================================
@@ -1369,5 +1371,5 @@ input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); curso
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
+  .reveal { transform: none; }
 }
