@@ -245,15 +245,57 @@ const PANEL = {
   }
 
   // ---------- Download ----------
+  // The base revenant.zip in storage holds the loader + dll (same for everyone).
+  // On download we fetch it, inject the user's redeemed key as nexoria.key, and
+  // hand the user a per-account zip. The loader auto-launches on that key.
   dlBtn.addEventListener('click', async () => {
     busy(dlBtn, true);
     setMsg(dlMsg, '');
-    const { data, error } = await sb.storage.from(PANEL.bucket).createSignedUrl(PANEL.file, 60, { download: true });
-    busy(dlBtn, false);
-    if (error || !data?.signedUrl) {
-      return setMsg(dlMsg, "Couldn't start the download. Make sure your subscription is active, then try again.", 'error');
+    try {
+      const { data: urlData, error: urlErr } = await sb.storage
+        .from(PANEL.bucket)
+        .createSignedUrl(PANEL.file, 60, { download: true });
+      if (urlErr || !urlData?.signedUrl) throw new Error('signed url');
+
+      const { data: keys, error: kErr } = await sb
+        .from('license_keys')
+        .select('key')
+        .not('redeemed_at', 'is', null)
+        .order('redeemed_at', { ascending: false })
+        .limit(1);
+      if (kErr) throw kErr;
+      if (!keys || !keys.length) throw new Error('no redeemed key on account');
+
+      setMsg(dlMsg, 'Preparing your personal build...', '');
+
+      const baseBlob = await fetch(urlData.signedUrl).then((r) => {
+        if (!r.ok) throw new Error('download failed');
+        return r.blob();
+      });
+
+      const zip = await JSZip.loadAsync(baseBlob);
+      zip.file('nexoria.key', keys[0].key);
+      const bundle = await zip.generateAsync({ type: 'blob' });
+
+      const dlUrl = URL.createObjectURL(bundle);
+      const a = Object.assign(document.createElement('a'), {
+        href: dlUrl,
+        download: 'nexoria.zip',
+      });
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(dlUrl), 1000);
+      setMsg(dlMsg, 'Download ready.', 'ok');
+    } catch (e) {
+      console.error(e);
+      const hint = /no redeemed key/.test(e.message)
+        ? 'Redeem a key first, then try again.'
+        : 'Make sure your subscription is active, then try again.';
+      setMsg(dlMsg, "Couldn't prepare your download. " + hint, 'error');
+    } finally {
+      busy(dlBtn, false);
     }
-    location.href = data.signedUrl;
   });
 
   // ---------- Store ----------
