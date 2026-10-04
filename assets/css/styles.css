@@ -539,13 +539,17 @@ code { font-family: var(--mono); font-size: 0.875em; }
 .revenant-body {
   padding: 16px;
   min-height: 360px;
+}
+
+.revenant-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-.revenant-content {
-  display: contents;
+.revenant-pane {
+  display: grid;
+  gap: 8px;
 }
 
 .revenant-section {
