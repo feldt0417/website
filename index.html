@@ -59,28 +59,10 @@
   <!-- Header -->
   <header class="site-header" id="top">
     <nav class="container nav" aria-label="Main">
-      <a class="brand" href="#top" aria-label="FragLab home">
-        <svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg>
-        <span class="brand-name">FragLab</span>
+      <a class="brand" href="#top" aria-label="Revenant home">
+        <span class="brand-dot"></span>
+        <span class="brand-name">REVENANT</span>
       </a>
-
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <svg class="icon icon-open"><use href="#i-menu"/></svg>
-        <svg class="icon icon-close"><use href="#i-close"/></svg>
-      </button>
-
-      <div class="nav-menu" id="nav-menu">
-        <ul class="nav-links">
-          <li><a class="nav-link" href="#features">Features</a></li>
-          <li><a class="nav-link" href="#tools">Web tools</a></li>
-          <li><a class="nav-link" href="#install">Install</a></li>
-          <li><a class="nav-link" href="#faq">FAQ</a></li>
-        </ul>
-        <div class="nav-actions">
-          <a class="btn btn-ghost btn-sm" href="#" data-link="discord"><svg class="icon"><use href="#i-chat"/></svg>Discord</a>
-          <a class="btn btn-primary btn-sm" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download</a>
-        </div>
-      </div>
     </nav>
   </header>
 
@@ -92,22 +74,7 @@
       <div class="hero-glow" aria-hidden="true"></div>
 
       <div class="container hero-inner">
-        <a class="pill" href="#features">
-          <span class="pill-dot"></span>
-          <span>Version 1.0 is out</span>
-          <svg class="icon"><use href="#i-arrow"/></svg>
-        </a>
-        <h1 class="hero-title"><span class="glow-text">FragLab</span></h1>
-        <p class="hero-sub">A lightweight CS2 utility. Bhop helper, crosshair editor and config tools in one clean app.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary btn-lg" href="#" data-link="download"><svg class="icon"><use href="#i-download"/></svg>Download for Windows</a>
-          <a class="btn btn-ghost btn-lg" href="#features">Explore features</a>
-        </div>
-        <ul class="hero-meta">
-          <li><svg class="icon"><use href="#i-monitor"/></svg>Windows 10 / 11</li>
-          <li><svg class="icon"><use href="#i-cpu"/></svg>Lightweight</li>
-          <li><svg class="icon"><use href="#i-refresh"/></svg>Regular updates</li>
-        </ul>
+        <h1 class="hero-title"><span class="glow-text">REVENANT</span></h1>
 
         <!-- Revenant Menu Preview -->
         <div class="app-wrap">
@@ -118,9 +85,13 @@
                 <span>REVENANT</span>
               </div>
               <div class="revenant-tabs" role="tablist" aria-label="Revenant sections">
-                <button class="revenant-tab is-active" type="button" role="tab" aria-selected="true" data-tab="general">General</button>
-                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="advanced">Advanced</button>
-                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="view">View</button>
+                <button class="revenant-tab is-active" type="button" role="tab" aria-selected="true" data-tab="ragebot">Ragebot</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="legitbot">Legitbot</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="visuals">Visuals</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="world">World</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="inventory">Inventory</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="misc">Misc</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="settings">Settings</button>
               </div>
               <div class="revenant-controls">
                 <svg class="icon"><use href="#i-refresh"/></svg>
@@ -129,24 +100,52 @@
             </div>
 
             <div class="revenant-body" id="revenant-body">
-              <div class="revenant-content" data-tab="general">
+              <div class="revenant-content" data-tab="ragebot">
                 <div class="revenant-section">
                   <div class="revenant-section-head">Features</div>
                   <!-- Features will be added here -->
                 </div>
               </div>
 
-              <div class="revenant-content" data-tab="advanced" hidden>
+              <div class="revenant-content" data-tab="legitbot" hidden>
                 <div class="revenant-section">
-                  <div class="revenant-section-head">Advanced</div>
-                  <!-- Advanced options will be added here -->
+                  <div class="revenant-section-head">Features</div>
+                  <!-- Features will be added here -->
                 </div>
               </div>
 
-              <div class="revenant-content" data-tab="view" hidden>
+              <div class="revenant-content" data-tab="visuals" hidden>
                 <div class="revenant-section">
-                  <div class="revenant-section-head">Display</div>
-                  <!-- Display options will be added here -->
+                  <div class="revenant-section-head">Features</div>
+                  <!-- Features will be added here -->
+                </div>
+              </div>
+
+              <div class="revenant-content" data-tab="world" hidden>
+                <div class="revenant-section">
+                  <div class="revenant-section-head">Features</div>
+                  <!-- Features will be added here -->
+                </div>
+              </div>
+
+              <div class="revenant-content" data-tab="inventory" hidden>
+                <div class="revenant-section">
+                  <div class="revenant-section-head">Features</div>
+                  <!-- Features will be added here -->
+                </div>
+              </div>
+
+              <div class="revenant-content" data-tab="misc" hidden>
+                <div class="revenant-section">
+                  <div class="revenant-section-head">Features</div>
+                  <!-- Features will be added here -->
+                </div>
+              </div>
+
+              <div class="revenant-content" data-tab="settings" hidden>
+                <div class="revenant-section">
+                  <div class="revenant-section-head">Features</div>
+                  <!-- Features will be added here -->
                 </div>
               </div>
             </div>
@@ -156,7 +155,7 @@
     </section>
 
     <!-- Features -->
-    <section class="section" id="features">
+    <section class="section" id="features" hidden>
       <div class="container">
         <div class="section-head reveal">
           <span class="kicker">Features</span>
@@ -200,7 +199,7 @@
     </section>
 
     <!-- Web tools -->
-    <section class="section section-alt" id="tools">
+    <section class="section section-alt" id="tools" hidden>
       <div class="container">
         <div class="section-head reveal">
           <span class="kicker">Free web tools</span>
@@ -607,7 +606,7 @@
     </section>
 
     <!-- Install -->
-    <section class="section" id="install">
+    <section class="section" id="install" hidden>
       <div class="container">
         <div class="section-head center reveal">
           <span class="kicker">Get started</span>
@@ -634,7 +633,7 @@
     </section>
 
     <!-- FAQ -->
-    <section class="section section-alt" id="faq">
+    <section class="section section-alt" id="faq" hidden>
       <div class="container faq-wrap">
         <div class="section-head reveal">
           <span class="kicker">FAQ</span>
@@ -672,7 +671,7 @@
     </section>
 
     <!-- Download -->
-    <section class="section download" id="download">
+    <section class="section download" id="download" hidden>
       <div class="container">
         <div class="download-card reveal">
           <div class="download-glow" aria-hidden="true"></div>
@@ -690,7 +689,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="site-footer">
+  <footer class="site-footer" hidden>
     <div class="container footer-inner">
       <div class="footer-brand">
         <a class="brand" href="#top" aria-label="FragLab home">

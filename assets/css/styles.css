@@ -223,9 +223,17 @@ code { font-family: var(--mono); font-size: 0.875em; }
   font-family: var(--display);
   font-weight: 700;
   font-size: 20px;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 .brand-mark { width: 30px; height: 30px; filter: drop-shadow(0 0 12px rgb(var(--accent-rgb) / 0.55)); }
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
+}
 
 .nav-menu {
   flex: 1;
@@ -394,11 +402,8 @@ code { font-family: var(--mono); font-size: 0.875em; }
   line-height: 0.95;
 }
 .glow-text {
-  background: linear-gradient(180deg, #fff 30%, color-mix(in srgb, var(--accent) 55%, #fff) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 40px rgb(var(--accent-rgb) / 0.45));
+  color: #ef4444;
+  filter: drop-shadow(0 0 40px rgba(239, 68, 68, 0.6));
 }
 .hero-sub {
   max-width: 560px;
