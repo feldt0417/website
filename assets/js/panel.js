@@ -2,8 +2,8 @@
 
 // Fill these in from Supabase -> Project Settings -> API. The anon key is meant to be public.
 const PANEL = {
-  supabaseUrl: '', // e.g. 'https://abcd1234.supabase.co'
-  supabaseAnonKey: '', // the "anon public" key
+  supabaseUrl: 'https://qxuozdtqpelddmxxwslj.supabase.co',
+  supabaseAnonKey: 'sb_publishable_ZsoQxVyiCnEMcxp2424IhA_UscMNbGg', // publishable key
   bucket: 'downloads',
   file: 'revenant.zip', // name of the file you uploaded to the bucket
 };
