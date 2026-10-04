@@ -325,12 +325,21 @@ const PANEL = {
 
     if (error || !url) {
       let msg = "Couldn't open the checkout. Try again in a minute.";
-      try {
-        const body = await error?.context?.json?.();
+      let detail = '';
+      const res = error?.context;
+      if (res && typeof res.status === 'number' && typeof res.text === 'function') {
+        const text = await res.text().catch(() => '');
+        let body = null;
+        try { body = JSON.parse(text); } catch { /* not JSON */ }
         if (body?.error) msg = body.error;
-      } catch { /* keep the default message */ }
+        else detail = `${res.status} ${body?.message || body?.msg || body?.code || text}`.trim().slice(0, 160);
+      } else if (error) {
+        detail = error.name === 'FunctionsFetchError' ? 'checkout service unreachable' : (error.message || error.name || '');
+      } else {
+        detail = 'no payment link returned';
+      }
       renderStore();
-      return setMsg(storeMsg, msg, 'error');
+      return setMsg(storeMsg, detail ? `${msg} (${detail})` : msg, 'error');
     }
     if (UUID.test(data.order_id || '')) store.set('rv-paid', data.order_id);
     location.href = url;
