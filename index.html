@@ -109,138 +109,44 @@
           <li><svg class="icon"><use href="#i-refresh"/></svg>Regular updates</li>
         </ul>
 
-        <!-- Interactive app preview -->
+        <!-- Revenant Menu Preview -->
         <div class="app-wrap">
-          <div class="app" id="app-preview">
-            <div class="app-titlebar">
-              <div class="app-brand">
-                <svg class="app-logo" aria-hidden="true"><use href="#logo"/></svg>
-                <span>FragLab</span>
-                <span class="app-version">v1.0</span>
+          <div class="revenant" id="revenant-preview">
+            <div class="revenant-header">
+              <div class="revenant-title">
+                <span class="revenant-dot"></span>
+                <span>REVENANT</span>
               </div>
-              <span class="app-hint">Interactive preview</span>
-              <div class="app-controls" aria-hidden="true">
-                <span><svg class="icon"><use href="#i-minus"/></svg></span>
-                <span><svg class="icon"><use href="#i-square"/></svg></span>
-                <span class="app-close"><svg class="icon"><use href="#i-close"/></svg></span>
+              <div class="revenant-tabs" role="tablist" aria-label="Revenant sections">
+                <button class="revenant-tab is-active" type="button" role="tab" aria-selected="true" data-tab="general">General</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="advanced">Advanced</button>
+                <button class="revenant-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="view">View</button>
+              </div>
+              <div class="revenant-controls">
+                <svg class="icon"><use href="#i-refresh"/></svg>
+                <svg class="icon"><use href="#i-gear"/></svg>
               </div>
             </div>
 
-            <div class="app-body">
-              <div class="app-side" role="tablist" aria-label="App sections">
-                <button class="app-tab is-active" type="button" role="tab" aria-selected="true" data-pane="movement"><svg class="icon"><use href="#i-jump"/></svg><span>Movement</span></button>
-                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="crosshair"><svg class="icon"><use href="#i-crosshair"/></svg><span>Crosshair</span></button>
-                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="configs"><svg class="icon"><use href="#i-folder"/></svg><span>Configs</span></button>
-                <button class="app-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-pane="settings"><svg class="icon"><use href="#i-gear"/></svg><span>Settings</span></button>
-                <div class="app-profile">
-                  <span class="app-avatar" aria-hidden="true">P</span>
-                  <span><small>Profile</small><strong id="app-profile-name">Default</strong></span>
+            <div class="revenant-body" id="revenant-body">
+              <div class="revenant-content" data-tab="general">
+                <div class="revenant-section">
+                  <div class="revenant-section-head">Features</div>
+                  <!-- Features will be added here -->
                 </div>
               </div>
 
-              <div class="app-main">
-                <!-- Movement -->
-                <div class="app-pane is-active" role="tabpanel" data-pane="movement">
-                  <div class="app-pane-head">
-                    <h3>Movement</h3>
-                    <p>Bunny hop helper and movement overlays.</p>
-                  </div>
-                  <div class="app-grid">
-                    <div class="app-card">
-                      <div class="app-row">
-                        <span><strong>Bhop helper</strong><small>Hold your key to chain jumps</small></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true" data-flag="bhop"><span></span></button>
-                      </div>
-                      <div class="app-row">
-                        <span><strong>Activation key</strong><small>Click, then press any key</small></span>
-                        <button class="app-key" type="button" data-keybind>SPACE</button>
-                      </div>
-                      <div class="app-row">
-                        <span><strong>Mode</strong></span>
-                        <div class="app-seg" role="group" aria-label="Mode">
-                          <button type="button" class="is-active">Hold</button>
-                          <button type="button">Toggle</button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="app-card app-speed">
-                      <div class="app-row">
-                        <span><strong>Speed overlay</strong><small>Shows your horizontal speed</small></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true" data-flag="speed"><span></span></button>
-                      </div>
-                      <div class="speedo" id="speedo">
-                        <span class="speedo-value" id="speedo-value">250</span>
-                        <span class="speedo-unit">u/s</span>
-                        <svg class="speedo-graph" viewBox="0 0 200 48" preserveAspectRatio="none" aria-hidden="true"><polyline id="speedo-line" points=""/></svg>
-                      </div>
-                    </div>
-                  </div>
+              <div class="revenant-content" data-tab="advanced" hidden>
+                <div class="revenant-section">
+                  <div class="revenant-section-head">Advanced</div>
+                  <!-- Advanced options will be added here -->
                 </div>
+              </div>
 
-                <!-- Crosshair -->
-                <div class="app-pane" role="tabpanel" data-pane="crosshair" hidden>
-                  <div class="app-pane-head">
-                    <h3>Crosshair</h3>
-                    <p>Design it here, apply it in one click.</p>
-                  </div>
-                  <div class="app-grid">
-                    <div class="app-card app-xh-preview">
-                      <div class="mini-xh" id="mini-xh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-                    </div>
-                    <div class="app-card">
-                      <label class="app-slider"><span>Length</span><input type="range" min="2" max="14" value="6" data-mini="len"></label>
-                      <label class="app-slider"><span>Gap</span><input type="range" min="0" max="10" value="3" data-mini="gap"></label>
-                      <label class="app-slider"><span>Thickness</span><input type="range" min="1" max="5" value="2" data-mini="thick"></label>
-                      <a class="app-link" href="#tool-crosshair" data-tool-link="crosshair">Try the full builder <svg class="icon"><use href="#i-arrow"/></svg></a>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Configs -->
-                <div class="app-pane" role="tabpanel" data-pane="configs" hidden>
-                  <div class="app-pane-head">
-                    <h3>Configs</h3>
-                    <p>Switch between setups instantly.</p>
-                  </div>
-                  <div class="app-card app-list" role="listbox" aria-label="Profiles">
-                    <button class="app-item is-active" type="button" role="option" aria-selected="true" data-profile="Default"><svg class="icon"><use href="#i-file"/></svg><span><strong>Default</strong><small>Everyday settings</small></span><em>Active</em></button>
-                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Practice"><svg class="icon"><use href="#i-nade"/></svg><span><strong>Practice</strong><small>Nade lineups &amp; movement</small></span><em>Active</em></button>
-                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Surf"><svg class="icon"><use href="#i-jump"/></svg><span><strong>Surf / KZ</strong><small>Community movement servers</small></span><em>Active</em></button>
-                    <button class="app-item" type="button" role="option" aria-selected="false" data-profile="Streamer"><svg class="icon"><use href="#i-monitor"/></svg><span><strong>Streamer</strong><small>Clean HUD, big radar</small></span><em>Active</em></button>
-                  </div>
-                </div>
-
-                <!-- Settings -->
-                <div class="app-pane" role="tabpanel" data-pane="settings" hidden>
-                  <div class="app-pane-head">
-                    <h3>Settings</h3>
-                    <p>Make it yours. Try the accent colors, they change this whole page.</p>
-                  </div>
-                  <div class="app-grid">
-                    <div class="app-card">
-                      <div class="app-row">
-                        <span><strong>Start with Windows</strong></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="false"><span></span></button>
-                      </div>
-                      <div class="app-row">
-                        <span><strong>Minimize to tray</strong></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true"><span></span></button>
-                      </div>
-                      <div class="app-row">
-                        <span><strong>Check for updates</strong></span>
-                        <button class="app-switch" type="button" role="switch" aria-checked="true"><span></span></button>
-                      </div>
-                    </div>
-                    <div class="app-card">
-                      <span class="app-label">Accent color</span>
-                      <div class="accents" role="radiogroup" aria-label="Accent color">
-                        <button type="button" role="radio" aria-checked="true" class="accent-swatch" data-accent="violet" style="--a:#8b5cf6;--b:#d946ef" aria-label="Violet"></button>
-                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="crimson" style="--a:#ef4444;--b:#f97316" aria-label="Crimson"></button>
-                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="ocean" style="--a:#06b6d4;--b:#3b82f6" aria-label="Ocean"></button>
-                        <button type="button" role="radio" aria-checked="false" class="accent-swatch" data-accent="toxic" style="--a:#22c55e;--b:#a3e635" aria-label="Toxic"></button>
-                      </div>
-                    </div>
-                  </div>
+              <div class="revenant-content" data-tab="view" hidden>
+                <div class="revenant-section">
+                  <div class="revenant-section-head">Display</div>
+                  <!-- Display options will be added here -->
                 </div>
               </div>
             </div>

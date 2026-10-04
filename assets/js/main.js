@@ -425,6 +425,27 @@ const SITE = {
     requestAnimationFrame(() => $('#tools').scrollIntoView());
   }
 
+  // ---------- Revenant tabs ----------
+  const revenantTabs = $$('.revenant-tab');
+  const revenantBody = $('#revenant-body');
+
+  if (revenantTabs.length && revenantBody) {
+    revenantTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+
+        revenantTabs.forEach((t) => {
+          t.classList.toggle('is-active', t === tab);
+          t.setAttribute('aria-selected', String(t === tab));
+        });
+
+        $$('[data-tab]', revenantBody).forEach((content) => {
+          content.hidden = content.dataset.tab !== tabName;
+        });
+      });
+    });
+  }
+
   // ---------- Reveal on scroll ----------
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
