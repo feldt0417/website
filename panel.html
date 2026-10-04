@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel · REVENANT</title>
+  <meta name="theme-color" content="#07070c">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/panel.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/panel.js" defer></script>
+</head>
+<body class="panel-page">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c1.3-3.8 4.3-5.5 8-5.5s6.7 1.7 8 5.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <nav class="container nav" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Revenant home">
+        <span class="brand-dot"></span>
+        <span class="brand-name">REVENANT</span>
+      </a>
+      <ul class="nav-links">
+        <li><a class="nav-link" href="index.html#features">Features</a></li>
+        <li><a class="nav-link" href="index.html#pricing">Pricing</a></li>
+        <li><a class="nav-link is-current" href="panel.html" aria-current="page">Panel</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="panel-main">
+    <div class="panel-glow" aria-hidden="true"></div>
+    <div class="container">
+
+      <!-- Shown until panel.js picks a view -->
+      <section class="pn-view pn-narrow" data-view="loading">
+        <div class="card pn-card pn-center"><span class="pn-spinner" aria-hidden="true"></span><p class="pn-muted">Loading…</p></div>
+      </section>
+
+      <!-- Supabase keys not filled in yet -->
+      <section class="pn-view pn-narrow" data-view="setup" hidden>
+        <div class="card pn-card">
+          <h1 class="pn-title">Panel unavailable</h1>
+          <p class="pn-muted">The user panel isn't available right now. Check back soon.</p>
+          <a class="btn btn-ghost pn-full" href="index.html">Back to home</a>
+        </div>
+      </section>
+
+      <!-- Log in / sign up -->
+      <section class="pn-view pn-narrow" data-view="auth" hidden>
+        <div class="card pn-card">
+          <div class="pn-switch" role="tablist" aria-label="Account">
+            <button class="pn-switch-btn is-active" type="button" role="tab" aria-selected="true" data-mode="login">Log in</button>
+            <button class="pn-switch-btn" type="button" role="tab" aria-selected="false" data-mode="signup">Sign up</button>
+          </div>
+          <h1 class="pn-title" id="auth-title">Welcome back</h1>
+          <form class="pn-form" id="auth-form" novalidate>
+            <label class="pn-field">
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+            <label class="pn-field">
+              <span>Password</span>
+              <input type="password" name="password" autocomplete="current-password" minlength="6" required>
+            </label>
+            <p class="pn-msg" role="status" aria-live="polite"></p>
+            <button class="btn btn-primary pn-full" type="submit" id="auth-submit">Log in</button>
+          </form>
+          <button class="pn-link" type="button" data-go="forgot" id="forgot-link">Forgot password?</button>
+        </div>
+      </section>
+
+      <!-- Request a reset email -->
+      <section class="pn-view pn-narrow" data-view="forgot" hidden>
+        <div class="card pn-card">
+          <h1 class="pn-title">Reset password</h1>
+          <p class="pn-muted">Enter your email and we'll send you a link to set a new password.</p>
+          <form class="pn-form" id="forgot-form" novalidate>
+            <label class="pn-field">
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+            <p class="pn-msg" role="status" aria-live="polite"></p>
+            <button class="btn btn-primary pn-full" type="submit">Send reset link</button>
+          </form>
+          <button class="pn-link" type="button" data-go="auth">Back to log in</button>
+        </div>
+      </section>
+
+      <!-- Opened from the reset email -->
+      <section class="pn-view pn-narrow" data-view="recover" hidden>
+        <div class="card pn-card">
+          <h1 class="pn-title">Set a new password</h1>
+          <form class="pn-form" id="recover-form" novalidate>
+            <label class="pn-field">
+              <span>New password</span>
+              <input type="password" name="password" autocomplete="new-password" minlength="6" required>
+            </label>
+            <p class="pn-msg" role="status" aria-live="polite"></p>
+            <button class="btn btn-primary pn-full" type="submit">Save password</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Logged in -->
+      <section class="pn-view" data-view="dash" hidden>
+        <div class="pn-head">
+          <div>
+            <p class="pn-eyebrow">User panel</p>
+            <h1 class="pn-hello">Welcome, <span id="dash-name"></span></h1>
+          </div>
+          <button class="btn btn-ghost btn-sm" type="button" id="logout">Log out</button>
+        </div>
+
+        <div class="pn-grid">
+          <article class="card pn-card pn-sub">
+            <div class="pn-card-top">
+              <h2 class="pn-label">Subscription</h2>
+              <span class="pn-badge" id="sub-badge"></span>
+            </div>
+            <p class="pn-plan" id="sub-plan"></p>
+            <p class="pn-muted" id="sub-detail"></p>
+            <div class="pn-bar" id="sub-bar" hidden><span id="sub-bar-fill"></span></div>
+            <a class="btn btn-ghost pn-full" href="index.html#pricing" id="sub-cta" hidden>View plans</a>
+          </article>
+
+          <article class="card pn-card pn-dl">
+            <div class="pn-card-top">
+              <h2 class="pn-label">Download</h2>
+            </div>
+            <p class="pn-plan">REVENANT</p>
+            <p class="pn-muted" id="dl-note">Latest build. Links expire after a minute, so grab a fresh one each time.</p>
+            <p class="pn-msg" id="dl-msg" role="status" aria-live="polite"></p>
+            <button class="btn btn-primary pn-full" type="button" id="dl-btn">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+              <span>Download</span>
+            </button>
+          </article>
+
+          <article class="card pn-card pn-acct">
+            <div class="pn-card-top">
+              <h2 class="pn-label">Account</h2>
+            </div>
+            <dl class="pn-info">
+              <div><dt><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>Email</dt><dd id="acct-email"></dd></div>
+              <div><dt><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Member since</dt><dd id="acct-since"></dd></div>
+            </dl>
+            <form class="pn-form pn-inline" id="pw-form" novalidate>
+              <label class="pn-field">
+                <span>Change password</span>
+                <input type="password" name="password" autocomplete="new-password" minlength="6" placeholder="New password" required>
+              </label>
+              <button class="btn btn-ghost" type="submit">Update</button>
+            </form>
+            <p class="pn-msg" role="status" aria-live="polite" id="pw-msg"></p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

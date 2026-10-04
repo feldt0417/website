@@ -1363,6 +1363,12 @@ input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); curso
 @media (max-width: 900px) {
   .tool-grid { grid-template-columns: minmax(0, 1fr); }
   .price-grid { grid-template-columns: minmax(0, 1fr); max-width: 460px; }
+}
+
+@media (max-width: 480px) {
+  .nav { gap: 6px; }
+  .nav-links { gap: 0; margin-left: auto; }
+  .nav-link { padding: 8px 7px; font-size: 14px; }
   .tool-output { position: static; }
   .faq-wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .faq-wrap .section-head { position: static; }
