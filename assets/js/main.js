@@ -78,30 +78,11 @@ const SITE = {
     });
   });
 
-  // ---------- Header: scroll state + mobile menu ----------
+  // ---------- Header: scroll state ----------
   const header = $('.site-header');
-  const navToggle = $('.nav-toggle');
-  const navMenu = $('#nav-menu');
-
   const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-
-  function setMenu(open) {
-    if (open) navMenu.style.setProperty('--menu-top', `${Math.round(header.getBoundingClientRect().bottom)}px`);
-    navToggle.setAttribute('aria-expanded', String(open));
-    navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    navMenu.classList.toggle('is-open', open);
-    document.body.classList.toggle('nav-open', open);
-  }
-  navToggle.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
-      setMenu(false);
-      navToggle.focus();
-    }
-  });
-  $$('#nav-menu a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
   // ---------- Accent color (also driven by the app preview) ----------
   const ACCENTS = {
@@ -110,7 +91,7 @@ const SITE = {
     ocean: ['#06b6d4', '#3b82f6', '6 182 212'],
     toxic: ['#22c55e', '#a3e635', '34 197 94'],
   };
-  let accentRgb = ACCENTS.violet[2];
+  let accentRgb = ACCENTS.crimson[2];
 
   function setAccent(name, { save = true } = {}) {
     const a = ACCENTS[name];
@@ -423,27 +404,6 @@ const SITE = {
   if (hashTool) {
     openTool(hashTool[1]);
     requestAnimationFrame(() => $('#tools').scrollIntoView());
-  }
-
-  // ---------- Revenant tabs ----------
-  const revenantTabs = $$('.revenant-tab');
-  const revenantBody = $('#revenant-body');
-
-  if (revenantTabs.length && revenantBody) {
-    revenantTabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const tabName = tab.dataset.tab;
-
-        revenantTabs.forEach((t) => {
-          t.classList.toggle('is-active', t === tab);
-          t.setAttribute('aria-selected', String(t === tab));
-        });
-
-        $$('[data-tab]', revenantBody).forEach((content) => {
-          content.hidden = content.dataset.tab !== tabName;
-        });
-      });
-    });
   }
 
   // ---------- Reveal on scroll ----------
