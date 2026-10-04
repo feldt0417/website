@@ -274,13 +274,13 @@ const PANEL = {
       });
 
       const zip = await JSZip.loadAsync(baseBlob);
-      zip.file('nexoria.key', keys[0].key);
+      zip.file('revenant.key', keys[0].key);
       const bundle = await zip.generateAsync({ type: 'blob' });
 
       const dlUrl = URL.createObjectURL(bundle);
       const a = Object.assign(document.createElement('a'), {
         href: dlUrl,
-        download: 'nexoria.zip',
+        download: 'revenant.zip',
       });
       document.body.appendChild(a);
       a.click();
